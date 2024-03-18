@@ -481,7 +481,7 @@ body {}
                 $connection = mysqli_connect("localhost","root","");
                 $db = mysqli_select_db($connection, 'payroll_system');
 
-                $query = "SELECT * FROM `employee`";
+                $query = "SELECT * FROM `employee` ORDER BY id DESC";
                 $query_run = mysqli_query($connection, $query);
             ?>  
                    

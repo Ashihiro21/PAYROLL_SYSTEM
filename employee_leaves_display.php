@@ -174,7 +174,7 @@
                 $connection = mysqli_connect("localhost","root","");
                 $db = mysqli_select_db($connection, 'payroll_system');
 
-                $query = "SELECT * FROM employee_leaves";
+                $query = "SELECT * FROM employee_leaves ORDER BY id DESC";
                 $query_run = mysqli_query($connection, $query);
             ?>
                     <table id="datatableid" class="table table-bordered shadow">
