@@ -18,6 +18,8 @@ if (!isset($_SESSION['username'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PAYROLL ANDSYSTEM</title>
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="styles.css">
 
@@ -69,7 +71,13 @@ body{
     background: #0a1828;
     padding-top: 10px;
     padding-bottom: 10px;
+    max-height: 80px;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
     
+}
+.accordion-menu .treeview-menu.open {
+    max-height: 200px;
 }
 
 .accordion .accordion-button {
@@ -268,22 +276,29 @@ a.sidebar-link:hover {
                     <span>Admin Dashboard</span>
                 </a>
             </li>
-            <div class="accordion accordion-menu" id="employeeAccordion">
-    <li class="sidebar-item accordion-item">
-        <a href="#" class="sidebar-link accordion-button collapsed" id="employeeAccordionHeading" role="button" data-bs-toggle="collapse" data-bs-target="#employeeCollapse" aria-expanded="false" aria-controls="employeeCollapse" style="background-image: none !important;">
-            <i class="lni lni-users"></i><span>Employee Section</span>
-        </a>
-        <div id="employeeCollapse" class="treeview accordion-collapse collapse" aria-labelledby="employeeAccordionHeading" data-bs-parent="#employeeAccordion">
-            <ul class="treeview-menu">
-                <li>
-                    <a href="?page=employee.php"<?php if ($page === 'employee.php') echo ' class="active"'; ?> class="accordion-item">Employees</a>
-                </li>
-                <li>
-                    <a href="?page=employee_leaves_display.php"<?php if ($page === 'employee_leaves_display.php') echo ' class="active"'; ?> class="accordion-item">Leaves</a>
-                </li>
-                <li>
-                    <a href="?page=employee_overtime.php"<?php if ($page === 'employee_overtime.php') echo ' class="active"'; ?> class="accordion-item">Overtime</a>
-                </li>
+                    <div class="accordion accordion-menu" id="employeeAccordion">
+            <li class="sidebar-item accordion-item">
+                <a href="#" class="sidebar-link accordion-button collapsed" id="employeeAccordionHeading" role="button" data-bs-toggle="collapse" data-bs-target="#employeeCollapse" aria-expanded="false" aria-controls="employeeCollapse" style="background-image: none !important;">
+                    <i class="lni lni-users"></i><span>Employee Section</span>
+                </a>
+                <div id="employeeCollapse" class="treeview accordion-collapse collapse" aria-labelledby="employeeAccordionHeading" data-bs-parent="#employeeAccordion">
+                    <ul class="treeview-menu">
+                    <li>
+            <a href="?page=employee.php"<?php if ($page === 'employee.php') echo ' class="active"'; ?> class="accordion-item">
+                <i class="lni lni-users"></i> Employees
+            </a>
+        </li>
+        <li>
+    <a href="?page=employee_leaves_display.php"<?php if ($page === 'employee_leaves_display.php') echo ' class="active"'; ?> class="accordion-item">
+        <i class="lni lni-briefcase"></i> Work Leaves
+    </a>
+</li>
+<li>
+    <a href="?page=employee_overtime.php"<?php if ($page === 'employee_overtime.php') echo ' class="active"'; ?> class="accordion-item">
+        <i class="fas fa-clock"></i> Overtime
+    </a>
+</li>
+
             </ul>
         </div>
     </li>
@@ -292,13 +307,19 @@ a.sidebar-link:hover {
 
 <script>
     $(document).ready(function () {
-        // Add accordion functionality
-        $('.accordion-button').click(function () {
-            $(this).toggleClass('collapsed');
-            var target = $(this).attr('data-bs-target');
-            $(target).toggleClass('show');
-        });
+    // Add accordion functionality
+    $('.accordion-button').click(function () {
+        $(this).toggleClass('collapsed');
+        $(this).attr('aria-expanded', $(this).attr('aria-expanded') === 'false' ? 'true' : 'false'); // Change the value of 'aria-expanded'
+        var target = $(this).attr('data-bs-target');
+        var treeview = $(target);
+        if (treeview.css('maxHeight') !== '0px') {
+            treeview.css('maxHeight', '0px');
+        } else {
+            treeview.css('maxHeight', treeview.prop('scrollHeight') + "px");
+        }
     });
+});
 </script>
 
 
