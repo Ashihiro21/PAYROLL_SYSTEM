@@ -6,6 +6,12 @@
     .hide-id {
         display: none;
     }
+
+    @media (max-width: 575.98px) {
+            .hide-sm {
+                display: none !important;
+            }
+        }
 </style>
 <body>
 
@@ -151,6 +157,7 @@
 
 
     <div class="container-fluid">
+    
         <div class="jumbotron bg-light shadow border border-secondary">
             <div class="card bg-light" style="border-color: transparent;">
                 <h2> Employee Attendance </h2>
@@ -160,6 +167,7 @@
                     <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#studentaddmodal">
                         ADD DATA
                     </button> -->
+                    <input type="text" class="float-right" id="searchInput" placeholder="Search...">
                     <a class="btn btn-primary float-left" href="generate_pdf_employees_attendance.php" download>Download PDF</a>
                 </div>
             </div>
@@ -181,10 +189,10 @@
                         <thead>
                             <tr>
                                 <th scope="col">Employee ID</th>
-                                <th scope="col">TIME IN AM</th>
-                                <th scope="col">TIME OUT AM</th>
-                                <th scope="col">TIME IN PM</th>
-                                <th scope="col">TIME OUT PM</th>
+                                <th scope="col" class="hide-sm">TIME IN AM</th>
+                                <th scope="col" class="hide-sm">TIME OUT AM</th>
+                                <th scope="col" class="hide-sm">TIME IN PM</th>
+                                <th scope="col" class="hide-sm">TIME OUT PM</th>
                                 <th scope="col">NUMBER OF HOURS</th>
                                 <th scope="col">STATUS</th>
                                 <th scope="col">APROVAL</th>
@@ -197,7 +205,7 @@
                     foreach($query_run as $row)
                     {
             ?>
-                        <tbody>
+                        <tbody id="tableBody">
                             <tr>
                                 <td class="hide-id"> <?php echo $row['id']; ?> </td>
                                 <td> <?php echo $row['Employee_No']; ?> </td>
@@ -340,3 +348,14 @@
         });
     </script>
 
+<script>
+    $(document).ready(function(){
+        // Live search functionality
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#tableBody tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

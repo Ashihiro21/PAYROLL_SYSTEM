@@ -282,8 +282,9 @@ $email = $row['email'];
                 $query = "SELECT employee.*, attendance.*
                 FROM employee
                 INNER JOIN attendance ON employee.Employee_No = attendance.Employee_No
-                WHERE employee.email = '$email' AND num_hr > 9;
-                ";
+                WHERE employee.email = '$email' AND (admin_approve = 'Reject' OR admin_approve = 'Approve')";
+      
+            
 
 
                 $query_run = mysqli_query($connection, $query);
@@ -302,20 +303,20 @@ $email = $row['email'];
                     foreach($query_run as $row)
                     {
             ?>
-                        <tbody>
+                            <tbody id="tableBody">
                             <tr>
                                 <td class="hide-id"> <?php echo $row['id']; ?> </td>
                                 <td class="hide-id"> <?php echo $row['email']; ?> </td>
                                 <td> <?php echo $row['num_hr'] - 9; ?> </td>
                                 <td> <?php echo $row['status']; ?> </td>
                                 <td> <?php echo $row['admin_approve']; ?> </td>
-                                <td>
-                                <!-- <button type="button" class="btn btn-info viewbtn"><i class="lni lni-eye"></i></button> -->
+                                <!-- <td>
+                                <button type="button" class="btn btn-info viewbtn"><i class="lni lni-eye"></i></button>
 
-                                <!-- <button type="button" class="btn btn-success editbtn"><i class="lni lni-pencil"></i></button>
+                                <button type="button" class="btn btn-success editbtn"><i class="lni lni-pencil"></i></button>
 
-                                <button type="button" class="btn btn-danger deletebtn"><i class="lni lni-trash-can"></i></button> -->
-                                </td>
+                                <button type="button" class="btn btn-danger deletebtn"><i class="lni lni-trash-can"></i></button>
+                                </td> -->
                             </tr>
                         </tbody>
                         <?php           
@@ -429,3 +430,14 @@ $email = $row['email'];
         });
     </script>
 
+<script>
+    $(document).ready(function(){
+        // Live search functionality
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#tableBody tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

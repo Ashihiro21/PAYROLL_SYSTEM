@@ -159,6 +159,7 @@
                     <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#studentaddmodal">
                         ADD DATA
                     </button> -->
+                    <input type="text" class="float-right" id="searchInput" placeholder="Search...">
                     <a class="btn btn-primary float-left" href="generate_pdf_employees_overtime.php" download>Download PDF</a>
                 </div>
             </div>
@@ -181,6 +182,7 @@
                                 <th scope="col">Full Name</th>
                                 <th scope="col">Employee ID</th>
                                 <th scope="col">Overtime</th>
+                                <th scope="col">Date</th>
                                 <!-- <th scope="col">Action</th> -->
                             </tr>
                         </thead>
@@ -190,19 +192,20 @@
                     foreach($query_run as $row)
                     {
             ?>
-                        <tbody>
+                       <tbody id="tableBody">
                             <tr>
                                 <td class="hide-id"> <?php echo $row['id']; ?> </td>
                                 <td><?php echo $row['first_name'] . ' ' . $row['last_name']; ?></td>
                                 <td> <?php echo $row['Employee_No']; ?> </td>
                                 <td> <?php echo $row['num_hr'] - 9; ?> </td>
-                                <td>
-                                <!-- <button type="button" class="btn btn-info viewbtn"><i class="lni lni-eye"></i></button> -->
+                                <td> <?php echo $row['date']; ?> </td>
+                                <!-- <td>
+                                <button type="button" class="btn btn-info viewbtn"><i class="lni lni-eye"></i></button>
 
-                                <!-- <button type="button" class="btn btn-success editbtn"><i class="lni lni-pencil"></i></button>
+                                <button type="button" class="btn btn-success editbtn"><i class="lni lni-pencil"></i></button>
 
-                                <button type="button" class="btn btn-danger deletebtn"><i class="lni lni-trash-can"></i></button> -->
-                                </td>
+                                <button type="button" class="btn btn-danger deletebtn"><i class="lni lni-trash-can"></i></button>
+                                </td> -->
                             </tr>
                         </tbody>
                         <?php           
@@ -314,3 +317,14 @@
         });
     </script>
 
+<script>
+    $(document).ready(function(){
+        // Live search functionality
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#tableBody tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
