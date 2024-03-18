@@ -159,6 +159,7 @@
             </div>
             <div class="card bg-light" style="border-color: transparent;">
                 <div class="card-body bg-light">
+                <input type="text" class="float-right" id="searchInput" placeholder="Search...">
                     <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#studentaddmodal">
                         ADD DATA
                     </button>
@@ -172,7 +173,7 @@
                 $connection = mysqli_connect("localhost","root","");
                 $db = mysqli_select_db($connection, 'payroll_system');
 
-                $query = "SELECT * FROM position";
+                $query = "SELECT * FROM position ORDER BY id DESC";
                 $query_run = mysqli_query($connection, $query);
             ?>
                     <table id="datatableid" class="table table-bordered shadow">
@@ -189,7 +190,7 @@
                     foreach($query_run as $row)
                     {
             ?>
-                        <tbody>
+                      <tbody id="tableBody">
                             <tr>
                                 <td class="hide-id"> <?php echo $row['id']; ?> </td>
                                 <td> <?php echo $row['position']; ?> </td>
@@ -312,3 +313,15 @@
         });
     </script>
 
+
+<script>
+    $(document).ready(function(){
+        // Live search functionality
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#tableBody tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

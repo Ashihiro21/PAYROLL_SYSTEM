@@ -189,11 +189,14 @@
             </div>
             <div class="card bg-light" style="border-color: transparent;">
                 <div class="card-body">
+                <input type="text" class="float-right" id="searchInput" placeholder="Search...">
                     <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#studentaddmodal">
                         ADD DATA
                     </button>
                 </div>
             </div>
+
+            
 
             <div class="card bg-light" style="border-color: transparent;">
                 <div class="card-body">
@@ -202,7 +205,7 @@
                 $connection = mysqli_connect("localhost","root","");
                 $db = mysqli_select_db($connection, 'payroll_system');
 
-                $query = "SELECT * FROM holiday";
+                $query = "SELECT * FROM holiday ORDER BY id DESC";
                 $query_run = mysqli_query($connection, $query);
             ?>
                     <table id="datatableid" class="table table-bordered shadow">
@@ -221,7 +224,7 @@
                     foreach($query_run as $row)
                     {
             ?>
-                        <tbody>
+                       <tbody id="tableBody">
                             <tr>
                                 <td class="hide-id"> <?php echo $row['id']; ?> </td>
                                 <td> <?php echo $row['tittle']; ?> </td>
@@ -348,3 +351,14 @@
         });
     </script>
 
+<script>
+    $(document).ready(function(){
+        // Live search functionality
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#tableBody tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

@@ -469,7 +469,7 @@ body {}
                     <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#studentaddmodal1">
                         ADD DATA
                     </button> -->
-
+                    <input type="text" class="float-right" id="searchInput" placeholder="Search...">
                     <a class="btn btn-primary float-left" href="generate_pdf_employees.php" download>Download PDF</a>
                 </div>
             </div>
@@ -481,7 +481,7 @@ body {}
                 $connection = mysqli_connect("localhost","root","");
                 $db = mysqli_select_db($connection, 'payroll_system');
 
-                $query = "SELECT * FROM `employee`";
+                $query = "SELECT * FROM `employee` ORDER BY id DESC";
                 $query_run = mysqli_query($connection, $query);
             ?>  
                    
@@ -503,7 +503,7 @@ body {}
                     foreach($query_run as $row)
                     {
             ?>
-                        <tbody>
+                       <tbody id="tableBody">
                             <tr>
                                 <td class="hide-id"> <?php echo $row['id']; ?> </td>
                                 <td> <?php echo $row['Employee_No']; ?> </td>
@@ -537,6 +537,7 @@ body {}
             ?>
                     </table>
                 </div>
+
             </div>
 
 
@@ -637,4 +638,14 @@ body {}
         });
     </script>
 
-   
+   <script>
+    $(document).ready(function(){
+        // Live search functionality
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#tableBody tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
