@@ -1,7 +1,13 @@
 
+<?php
+
+
+?>
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="styles.css">
+
     <style>
     .hide-id {
         display: none;
@@ -167,6 +173,8 @@
                     <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#studentaddmodal">
                         ADD DATA
                     </button> -->
+
+                 
                     
                     <input type="text" class="float-right" id="searchInput" placeholder="Search...">
                     <a class="btn btn-primary float-left" href="generate_pdf_employees_attendance.php" download>Download PDF</a>
@@ -176,16 +184,39 @@
             <div class="card bg-light" style="border-color: transparent;">
                 <div class="card-body">
 
-                    <?php
+                   
 
                     
-                $connection = mysqli_connect("localhost","root","");
-                $db = mysqli_select_db($connection, 'payroll_system');
 
-                
-                $query = "SELECT * FROM attendance";
-                $query_run = mysqli_query($connection, $query);
-            ?>
+                    
+                <?php
+// Database connection
+$connection = mysqli_connect("localhost", "root", "");
+$db = mysqli_select_db($connection, 'payroll_system');
+
+// Records per page
+$records_per_page = 5;
+
+// Determine page number
+$page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1; // Ensure page is at least 1
+
+// Calculate offset for pagination
+$offset = ($page - 1) * $records_per_page;
+
+// Fetch total number of records
+$total_records_query = "SELECT COUNT(*) AS total FROM attendance";
+$total_records_result = mysqli_query($connection, $total_records_query);
+$total_records_row = mysqli_fetch_assoc($total_records_result);
+$total_records = intval($total_records_row['total']); // Convert to integer to avoid type mismatch
+
+// Calculate total number of pages
+$total_pages = ceil($total_records / $records_per_page);
+
+// SQL query with pagination
+$query = "SELECT * FROM attendance ORDER BY id DESC LIMIT $offset, $records_per_page";
+$query_run = mysqli_query($connection, $query);
+?>
+
                     <table id="datatableid" class="table table-bordered shadow">
                         <thead>
                             <tr>
@@ -246,20 +277,41 @@
                 {
                     echo "No Record Found";
                 }
+
+                
             ?>
+
+<?php
+
+
+echo '<div class="pagination">';
+for ($i = 1; $i <= $total_pages; $i++) {
+    if ($i == $records_per_page) {
+        echo '<span class="current">' . $i . '</span>';
+    } else {
+        echo '<a href="nav.php?page=attendance.php&page=' . $i . '">' . $i . '</a>';
+    }
+}
+echo '</div>';
+
+
+?>
                     </table>
                 </div>
             </div>
 
-
+    
         </div>
     </div>
 
 
     
+    <?php
+include('./scripts.php');
 
+?>
     
-
+    <script src="build\bootstrap-less\mixins\pagination.less"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
@@ -345,3 +397,4 @@
         });
     });
 </script>
+
