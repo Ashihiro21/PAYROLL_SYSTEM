@@ -280,7 +280,7 @@ $email = $row['email'];
                 $db = mysqli_select_db($connection, 'payroll_system');
                 $email = mysqli_real_escape_string($connection, $_SESSION['email']);
                 $query = "SELECT employee.*, attendance.*
-                FROM employee
+                FROM `employee` ORDER BY id DESC
                 INNER JOIN attendance ON employee.Employee_No = attendance.Employee_No
                 WHERE employee.email = '$email' AND (admin_approve = 'Reject' OR admin_approve = 'Approve')";
       

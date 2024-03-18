@@ -167,6 +167,7 @@
                     <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#studentaddmodal">
                         ADD DATA
                     </button> -->
+                    
                     <input type="text" class="float-right" id="searchInput" placeholder="Search...">
                     <a class="btn btn-primary float-left" href="generate_pdf_employees_attendance.php" download>Download PDF</a>
                 </div>
@@ -205,7 +206,7 @@
                     foreach($query_run as $row)
                     {
             ?>
-                        <tbody id="tableBody">
+                    <tbody id="tableBody">
                             <tr>
                                 <td class="hide-id"> <?php echo $row['id']; ?> </td>
                                 <td> <?php echo $row['Employee_No']; ?> </td>
@@ -257,6 +258,8 @@
 
     
 
+    
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
@@ -287,24 +290,7 @@
     </script>
 
 
-    <script>
-        $(document).ready(function () {
 
-            $('#datatableid').DataTable({
-                "pagingType": "full_numbers",
-                "lengthMenu": [
-                    [10, 25, 50, -1],
-                    [10, 25, 50, "All"]
-                ],
-                responsive: true,
-                language: {
-                    search: "_INPUT_",
-                    searchPlaceholder: "Search Your Data",
-                }
-            });
-
-        });
-    </script>
 
     <script>
         $(document).ready(function () {
