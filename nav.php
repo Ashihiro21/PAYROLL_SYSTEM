@@ -18,7 +18,7 @@ if (!isset($_SESSION['username'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PAYROLL ANDSYSTEM</title>
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">                                                                         
     <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="styles.css">
@@ -134,6 +134,7 @@ a.sidebar-link:hover {
        background-color: rgba(255, 255, 255, -255);
         border-left: 3px solid #3b7ddd;
 }
+
 </style>
 </head>
 
@@ -303,6 +304,44 @@ a.sidebar-link:hover {
         </div>
     </li>
 </div>
+<script>
+        $(document).ready(function () {
+            // Add accordion functionality
+            $('.accordion-button').click(function () {
+                $(this).toggleClass('collapsed');
+                $(this).attr('aria-expanded', $(this).attr('aria-expanded') === 'false' ? 'true' : 'false');
+                var target = $(this).attr('data-bs-target');
+                var treeview = $(target);
+                if (treeview.css('maxHeight') !== '0px') {
+                    treeview.css('maxHeight', '0px');
+                } else {
+                    treeview.css('maxHeight', treeview.prop('scrollHeight') + "px");
+                }
+            });
+
+            // Check if the sidebar is initially collapsed
+            const isSidebarCollapsed = $("#sidebar").hasClass("collapse");
+
+            if (isSidebarCollapsed) {
+                // Hide text for accordion menu items
+                $(".treeview-menu li").each(function() {
+                    $(this).find("a .sidebar-link-text").hide();
+                });
+            }
+
+            // Toggle visibility of text when sidebar is expanded or collapsed
+            $(".toggle-btn").click(function() {
+                $(".treeview-menu li").each(function() {
+                    if (isSidebarCollapsed) {
+                        $(this).find("a .sidebar-link-text").show();
+                    } else {
+                        $(this).find("a .sidebar-link-text").hide();
+                    }
+                });
+            });
+        });
+    </script>
+
 
 
 <script>
