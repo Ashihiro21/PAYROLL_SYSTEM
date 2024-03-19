@@ -294,13 +294,6 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 
 
             </div>
-
-    
-        </div>
-    </div>
-    <strong>Page <?php echo $page_no." of ".$total_no_of_pages; ?></strong>
-                </div>
-
                 <ul class="pagination">
 
 <!-- First Page -->
@@ -373,6 +366,12 @@ if ($total_no_of_pages <= 10) {
     echo "<li class='page-item'><a class='page-link' href='nav.php?page=attendance.php&page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
 } ?>
 </ul>
+<strong>Page <?php echo $page_no." of ".$total_no_of_pages; ?></strong>
+                </div>
+        </div>
+        
+    </div>
+   
 
 
     
