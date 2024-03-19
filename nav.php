@@ -385,73 +385,56 @@ a.sidebar-link:hover {
 
         <script>
 
- $(document).ready(function () {
-            // Fetch user data using AJAX
-            $.ajax({
-                url: "fetch_user_data.php",
-                type: "GET",
-                success: function (userData) {
-                    // Populate input fields with user data
-                    $("#firstName").val(userData.first_name);
-                    $("#lastName").val(userData.last_name);
-                    $("#department").val(userData.department);
-                    $("#position").val(userData.position);
-
-                    // Display the current profile image in the modal
-                    var currentProfileImageModal = userData.image_url;
-            if (currentProfileImageModal) {
-                $("#currentProfileImageModal").attr("src", currentProfileImageModal);
-                // Update the value of the hidden input field
-                $("#currentProfileImageInput").val(currentProfileImageModal);
-
-                // Automatically fill in the profileImage input with the current image
-                $("#profileImage").val(currentProfileImageModal);
-            }
+$(document).ready(function () {
+    // Fetch user data using AJAX
+    $.ajax({
+        url: "fetch_user_data.php",
+        type: "GET",
+        success: function (userData) {
+            // Populate input fields with user data
+            $("#firstName").val(userData.first_name);
+            $("#lastName").val(userData.last_name);
+            $("#department").val(userData.department);
+            $("#position").val(userData.position);
+            // Display images if available
+            $("#images").val(userData.images);
+          
         },
         error: function (error) {
             console.error(error);
         }
     });
 
+    // Handle profile update form submission
+    $("#updateProfileForm").submit(function (e) {
+        e.preventDefault();
 
-            // Handle profile update form submission
-            $("#updateProfileForm").submit(function (e) {
-                e.preventDefault();
+        var formData = new FormData(this); // Gather form data
 
-                // Check if a new profile image is selected
-                var newProfileImage = $("#profileImage")[0].files[0];
-
-                // Create FormData object to handle file uploads
-                var formData = new FormData($(this)[0]);
-
-                // Append the new profile image to FormData if selected
-                if (newProfileImage) {
-                    formData.append('profileImage', newProfileImage);
-                }
-
-                // Send AJAX request to update profile
-                $.ajax({
-                    url: "update_profile.php",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        // Handle the response from the server
-                        console.log(response);
-                        // Show alert
-                        alert(response);
-                        // Redirect back to nav.php
-                        window.location.href = 'nav.php';
-                    },
-                    error: function (error) {
-                        console.error(error);
-                        // Show error alert
-                        alert("Error updating profile. Please try again.");
-                    }
-                });
-            });
+        // Send AJAX request to update profile
+        $.ajax({
+            url: "update_profile.php",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                // Handle the response from the server
+                console.log(response);
+                // Show alert
+                alert(response);
+                // Redirect back to nav.php or perform other actions
+                $('#updateProfileModal').modal('hide'); // Close the modal
+            },
+            error: function (error) {
+                console.error(error);
+                // Show error alert
+                alert("Error updating profile. Please try again.");
+            }
         });
+    });
+});
+
 
         $(document).ready(function () {
             const hamBurger = document.querySelector(".toggle-btn");
@@ -529,17 +512,12 @@ a.sidebar-link:hover {
                         <label for="position" class="form-label">Position</label>
                         <input type="text" class="form-control" id="position" name="position" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="currentProfileImageModal" class="form-label">Current Profile Image</label>
-                        <img id="currentProfileImageModal" src="" alt="Current Profile Image" class="img-fluid">
-                        <input type="hidden" id="currentProfileImageInput" name="currentProfileImageInput">
-                    </div>
-
-                    <!-- New Profile Image Input -->
-                    <div class="mb-3">
-                        <label for="profileImage" class="form-label">New Profile Image</label>
-                        <input type="file" class="form-control" id="profileImage" name="profileImage">
-                    </div>
+    
+                <!-- New Profile Image Input -->
+                <div class="mb-3">
+                     <input type="hidden" id="images" name="images">
+                    <input type="file" class="form-control" id="images" name="images">
+                </div>
 
                     <!-- Add more form fields as needed -->
                     <button type="submit" class="btn btn-primary">Save Changes</button>
