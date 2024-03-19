@@ -561,19 +561,8 @@ body {}
                 }
             ?>
                     </table>
-                </div>
 
-            </div>
-
-
-        </div>
-    </div>
-
-
-    <strong>Page <?php echo $page_no." of ".$total_no_of_pages; ?></strong>
-                </div>
-
-                <ul class="pagination">
+                    <ul class="pagination">
 
 <!-- First Page -->
 <?php // if($page_no > 1){ echo "<li><a href='nav.php?page=employee.php&page_no=1'>First Page</a></li>"; } ?>
@@ -645,6 +634,20 @@ if ($total_no_of_pages <= 10) {
     echo "<li class='page-item'><a class='page-link' href='nav.php?page=employee.php&page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
 } ?>
 </ul>
+                </div>
+
+            </div>
+            
+
+<strong>Page <?php echo $page_no." of ".$total_no_of_pages; ?></strong>
+                </div>
+        </div>
+    </div>
+
+
+   
+
+              
 
 
 

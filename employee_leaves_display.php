@@ -253,15 +253,7 @@
                     </table>
                 </div>
             </div>
-
-
-        </div>
-    </div>
-
-    <strong>Page <?php echo $page_no." of ".$total_no_of_pages; ?></strong>
-                </div>
-
-                <ul class="pagination">
+            <ul class="pagination">
 
 <!-- First Page -->
 <?php // if($page_no > 1){ echo "<li><a href='nav.php?page=employee_leaves_display.php&page_no=1'>First Page</a></li>"; } ?>
@@ -333,6 +325,16 @@ if ($total_no_of_pages <= 10) {
     echo "<li class='page-item'><a class='page-link' href='nav.php?page=employee_leaves_display.php&page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
 } ?>
 </ul>
+
+<strong>Page <?php echo $page_no." of ".$total_no_of_pages; ?></strong>
+                </div>
+
+
+        </div>
+    </div>
+
+    
+              
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
