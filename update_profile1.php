@@ -44,11 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['email'])) {
     }
     $stmt->bindParam(':email', $_SESSION['email'], PDO::PARAM_STR);
 
-    if ($stmt->execute()) {
-        echo "Profile updated successfully";
-    } else {
-        echo "Failed to update profile";
-    }
+
+if ($stmt->execute()) {
+    echo "Profile updated successfully";
+    // JavaScript code for auto-refresh after 2 seconds
+} else {
+    echo "Failed to update profile";
+}
     $stmt->closeCursor();
 } else {
     echo "Invalid request";

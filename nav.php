@@ -137,6 +137,11 @@ a.sidebar-link:hover {
 .lni lni-users{
     margin-right:200px
 }
+
+.count{
+    font-size: 20px;
+  
+}
 </style>
 </head>
 
@@ -166,48 +171,86 @@ a.sidebar-link:hover {
               
                     // Your existing code...
                     if ($result) {
-
-                    
                         echo "
-                        <span class='users'>
-                        <button class='circle-button dropdown-toggle' 
-                            data-bs-toggle='dropdown' 
-                            aria-expanded='false' 
-                            aria-haspopup='true'
-                            aria-controls='dropdown-menu' 
-                            aria-label='Open user options'>
-                            <img class='User_Image1'  src='{$result['images']}' alt='Profile picture of {$result['first_name']}  {$result['last_name']}'>
-                        </button>
-                                
-                        <div class='text-logo' role='contentinfo' aria-label='User Information'> 
-                            {$result['first_name']}  {$result['last_name']} 
-                        </div>
-                        <div aria-live='polite' aria-atomic='true' class='dropdown-menu mt-3 id='dropdown-menu' style='width: 300px;'> <!-- Adjust the width as needed -->
-                        <img src='" . $result['images'] . "' alt='Picture of {$result['first_name']} {$result['last_name']}' class='responsive-image'>
-                        <div class='text-logo1' role='contentinfo' aria-label='User Information'>
-                            {$result['first_name']} {$result['last_name']}
-                        </div>
-                        <div class='footer mt-5'>
-                            <button class='btn btn1 ms-2 text-white' style='border: none;' data-bs-toggle='modal' data-bs-target='#updateProfileModal'>
-                                <i class='lni lni-pencil me-4'></i> Update Profile
-                            </button>
-                            <div class='sidebar-footer'>
-                                <a href='logout.php' class='sidebar-link'>
-                                    <i class='lni lni-exit'></i><a>Logout</a>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                        ";
+                            <span class='users'>
+                                <a class='nav-link' href='nav.php?page=employee_overtime.php'>
+                                    <svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' fill='currentColor' viewBox='0 0 16 16'>
+                                        <path d='M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z'/>
+                                        <path d='M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z'/>
+                                        <path d='M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5'/>
+                                    </svg>";
                        
+                                    // Assuming you have already connected to your MySQL database
+              
+                                    $servername = "localhost";
+                                    $username = "root";
+                                    $password = "";
+                                    $database = "payroll_system";
+                                    
+                               
+                                        // Create a PDO connection
+                                        $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+                                        
+                                        // Set PDO error mode to exception
+                                        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                    
+                                        // Prepare the SQL query
+                                        $stmt = $conn->prepare("SELECT COUNT(*) AS row_count FROM attendance WHERE overtime AND date = CURDATE()");
+                                        
+                                        // Execute the query
+                                        $stmt->execute();
+                                        
+                                        // Fetch the row count
+                                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                                        $rowCount = $row['row_count'];
+                                        
+                                        // Output the row count
+                                        echo '<span class="count">' . $rowCount . '</span>';
+
+                                  
+                                 
+                                    
+                                
+                                    
+                     
+                        
+                        echo "
+                                </a>
+                                <button class='circle-button dropdown-toggle' 
+                                        data-bs-toggle='dropdown' 
+                                        aria-expanded='false' 
+                                        aria-haspopup='true'
+                                        aria-controls='dropdown-menu' 
+                                        aria-label='Open user options'>
+                                    <img class='User_Image1'  src='{$result['images']}' alt='Profile picture of {$result['first_name']}  {$result['last_name']}'>
+                                </button>
+                                <div class='text-logo' role='contentinfo' aria-label='User Information'> 
+                                    {$result['first_name']}  {$result['last_name']} 
+                                </div>
+                                <div aria-live='polite' aria-atomic='true' class='dropdown-menu mt-3 id='dropdown-menu' style='width: 300px;'> <!-- Adjust the width as needed -->
+                                    <img src='" . $result['images'] . "' alt='Picture of {$result['first_name']} {$result['last_name']}' class='responsive-image'>
+                                    <div class='text-logo1' role='contentinfo' aria-label='User Information'>
+                                        {$result['first_name']} {$result['last_name']}
+                                    </div>
+                                    <div class='footer mt-5'>
+                                        <button class='btn btn1 ms-2 text-white' style='border: none;' data-bs-toggle='modal' data-bs-target='#updateProfileModal'>
+                                            <i class='lni lni-pencil me-4'></i> Update Profile
+                                        </button>
+                                        <div class='sidebar-footer'>
+                                            <a href='logout.php' class='sidebar-link'>
+                                                <i class='lni lni-exit'></i><span>Logout</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </span>
+                        </a>";
                     } else {
                         echo "0 results";
                     }
-            
                     $stmt->closeCursor();
-                    ?>
-                   
+                    
+                   ?>
 
         </h1>
     
@@ -223,6 +266,8 @@ a.sidebar-link:hover {
             </button>
                     <?php
                     include_once('db_config.php');
+
+                    
 
                     // Initialize or define the $page variable
                     $page = isset($_GET['page']) ? $_GET['page'] : 'admin_dashboard.php';
@@ -245,6 +290,7 @@ a.sidebar-link:hover {
                     if ($result) {
                         // Output data
                         echo "<div class='user-info ms-2'>";
+                        
                         echo "<img src='" . $result['images'] . "' alt='User Image' class='user-image'>";
                         echo "<a class='text-center m-1' href='#'>";
                         echo $result['first_name'] . " " . $result['last_name'];
@@ -423,8 +469,8 @@ $(document).ready(function () {
                 console.log(response);
                 // Show alert
                 alert(response);
-                // Redirect back to nav.php or perform other actions
-                $('#updateProfileModal').modal('hide'); // Close the modal
+                // Refresh the page
+                window.location.reload();
             },
             error: function (error) {
                 console.error(error);

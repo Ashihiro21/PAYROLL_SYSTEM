@@ -321,6 +321,7 @@ $email = $row['email'];
                                 <th scope="col">TIME IN OUT PM</th>
                                 <th scope="col">Number of Hours</th>
                                 <th scope="col">Admin Approval</th>
+                                <th scope="col">DATE</th>
                             </tr>
                         </thead>
                         <?php
@@ -334,18 +335,20 @@ $email = $row['email'];
                                 <td class="hide-id"> <?php echo $row['id']; ?> </td>
                                 <td class="hide-id"> <?php echo $row['email']; ?> </td>
                                 <td> <?php echo !empty($row['time_in']) ? date('h:i A', strtotime($row['time_in'])) : ''; ?> </td>
-                                <td> <?php echo !empty($row['time_out']) ? date('h:i A', strtotime($row['time_out'])) : ''; ?> </td>
-                                <td> <?php echo !empty($row['time_in2']) ? date('h:i A', strtotime($row['time_in2'])) : ''; ?> </td>
-                                <td> <?php echo !empty($row['time_out2']) ? date('h:i A', strtotime($row['time_out2'])) : ''; ?> </td>
-                                <td> <?php echo $row['num_hr'] - 1; ?> </td>
+                                <td> <?php echo !empty($row['time_out']) ? date('h:i A', strtotime($row['time_out'])) : 'No Time Out'; ?> </td>
+                                <td> <?php echo !empty($row['time_in2']) ? date('h:i A', strtotime($row['time_in2'])) : 'No Time In'; ?> </td>
+                                <td> <?php echo !empty($row['time_out2']) ? date('h:i A', strtotime($row['time_out2'])) : 'No Time Out'; ?> </td>
+                                
+                                <td><?php echo ($row['num_hr'] - 1) < 1 ? 0 : ($row['num_hr'] - 1); ?></td>
                                 <td> <?php echo $row['admin_approve']; ?> </td>
-                                <td>
+                                <td> <?php echo $row['date']; ?> </td>
+                                <!-- <td> -->
                                 <!-- <button type="button" class="btn btn-info viewbtn"><i class="lni lni-eye"></i></button> -->
 
                                 <!-- <button type="button" class="btn btn-success editbtn"><i class="lni lni-pencil"></i></button>
 
                                 <button type="button" class="btn btn-danger deletebtn"><i class="lni lni-trash-can"></i></button> -->
-                                </td>
+                                <!-- </td> -->
                             </tr>
                         </tbody>
                         <?php           

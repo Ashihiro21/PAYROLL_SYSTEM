@@ -234,6 +234,7 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
                                 <th scope="col">NUMBER OF HOURS</th>
                                 <th scope="col">STATUS</th>
                                 <th scope="col">APROVAL</th>
+                                <th scope="col">DATE</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -247,27 +248,23 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
                             <tr>
                                 <td class="hide-id"> <?php echo $row['id']; ?> </td>
                                 <td> <?php echo $row['Employee_No']; ?> </td>
-                                                                                <?php
-                                                // Assuming $row is the array containing time values
+                                                                             
+               
+                                                    
+                               <td> <?php echo !empty($row['time_in']) ? date('h:i A', strtotime($row['time_in'])) : ''; ?> </td>
+                               <td><?php echo !empty($row['time_out']) ? date('h:i A', strtotime($row['time_out'])) : 'No Time Out'; ?></td>
 
-                                                // Check if all time values are empty or null
-                                                if (empty($row['time_in']) && empty($row['time_out']) && empty($row['time_in2']) && empty($row['time_out2'])) {
-                                                    echo "<td colspan='4'>No records Yet</td>";
-                                                } else {
-                                                    // If at least one time value is not empty or null, print the time values
-                                                    ?>
-                                                    <td> <?php echo !empty($row['time_in']) ? date('h:i A', strtotime($row['time_in'])) : ''; ?> </td>
-                                                    <td> <?php echo !empty($row['time_out']) ? date('h:i A', strtotime($row['time_out'])) : ''; ?> </td>
-                                                    <td> <?php echo !empty($row['time_in2']) ? date('h:i A', strtotime($row['time_in2'])) : ''; ?> </td>
-                                                    <td> <?php echo !empty($row['time_out2']) ? date('h:i A', strtotime($row['time_out2'])) : ''; ?> </td>
-                                                    <?php
-                                                }
-                                                ?>
+                               <td> <?php echo !empty($row['time_in2']) ? date('h:i A', strtotime($row['time_in2'])) : 'No Time In'; ?> </td>
+                               <td> <?php echo !empty($row['time_out2']) ? date('h:i A', strtotime($row['time_out2'])) : 'No Time Out'; ?> </td>
+                                                   
+                                               
+                                              
 
                                 <td><?php echo ($row['num_hr'] - 1) < 1 ? 0 : ($row['num_hr'] - 1); ?></td>
 
                                 <td> <?php echo $row['status']; ?> </td>
                                 <td> <?php echo $row['admin_approve']; ?> </td>
+                                <td> <?php echo $row['date']; ?> </td>
                                 <td>
                                 <!-- <button type="button" class="btn btn-info viewbtn"><i class="lni lni-eye"></i></button> -->
 

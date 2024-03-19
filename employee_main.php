@@ -250,7 +250,6 @@ $(document).ready(function () {
             $("#password").val(userData.password);
             // Display images if available
             $("#images").val(userData.images);
-          
         },
         error: function (error) {
             console.error(error);
@@ -275,8 +274,8 @@ $(document).ready(function () {
                 console.log(response);
                 // Show alert
                 alert(response);
-                // Redirect back to nav.php or perform other actions
-                $('#updateProfileModal').modal('hide'); // Close the modal
+                // Refresh the page
+                window.location.reload();
             },
             error: function (error) {
                 console.error(error);
