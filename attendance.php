@@ -264,7 +264,8 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
                                                 }
                                                 ?>
 
-                                <td><?php echo $row['num_hr'] - 1; ?></td>
+                                <td><?php echo ($row['num_hr'] - 1) < 1 ? 0 : ($row['num_hr'] - 1); ?></td>
+
                                 <td> <?php echo $row['status']; ?> </td>
                                 <td> <?php echo $row['admin_approve']; ?> </td>
                                 <td>
