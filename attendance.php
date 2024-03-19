@@ -6,6 +6,7 @@
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+
     <link rel="stylesheet" href="styles.css">
 
     <style>
@@ -321,6 +322,8 @@ include('./scripts.php');
 
     <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css"></script>
+
 
     <script>
         $(document).ready(function () {
@@ -397,4 +400,6 @@ include('./scripts.php');
         });
     });
 </script>
+
+
 
