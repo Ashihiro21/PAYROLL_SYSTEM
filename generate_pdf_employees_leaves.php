@@ -26,9 +26,10 @@ $dbname = "payroll_system";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
+// Check if the connection is successful
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    // If not, output an error message and exit
+    die('Error: Unable to connect to the database. ' . $conn->connect_error);
 }
 
 // Query to fetch users from the database
@@ -36,7 +37,11 @@ $sql = "SELECT id, Employee_No, first_name, last_name, leave_type, start_date, e
         FROM employee_leaves 
         WHERE status = 'Approve'";
 
-$result = $conn->query($sql);
+// Check if the query execution is successful
+if (!$result = $conn->query($sql)) {
+    // If not, output an error message and exit
+    die('Error: There was an error running the query [' . $conn->error . ']');
+}
 
 // Output data of each row
 $html = '<h1 style="text-align: center;">Employee Leaves List</h1>';
@@ -48,15 +53,16 @@ $html .= '<table border="1" style="width: 100%; border-collapse: collapse;">
                 <th style="text-align: center; padding-bottom:10px; padding-top:10px;  font-weight: bold;">Start Date</th>
                 <th style="text-align: center; padding-bottom:10px; padding-top:10px;  font-weight: bold;">End Date</th>
             </tr>';
+
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $html .= '<tr>
-                    <td style="text-align: center; padding-bottom:10px; padding-top:10px; ">' . $row["Employee_No"] . '</td>
-                    <td style="text-align: center; padding-bottom:10px; padding-top:10px; ">' . $row["first_name"] . ' ' . $row["last_name"] . '</td>
-                    <td style="text-align: center; padding-bottom:10px; padding-top:10px; ">' . $row["leave_type"] . '</td>
-                    <td style="text-align: center; padding-bottom:10px; padding-top:10px; ">' . $row["start_date"] . '</td>
-                    <td style="text-align: center; padding-bottom:10px; padding-top:10px; ">' . $row["end_date"] . '</td>
-                  </tr>';
+            <td style="text-align: center; padding-bottom:10px; padding-top:10px; ">' . $row["Employee_No"] . '</td>
+            <td style="text-align: center; padding-bottom:10px; padding-top:10px; ">' . $row["first_name"] . ' ' . $row["last_name"] . '</td>
+            <td style="text-align: center; padding-bottom:10px; padding-top:10px; ">' . $row["leave_type"] . '</td>
+            <td style="text-align: center; padding-bottom:10px; padding-top:10px; ">' . $row["start_date"] . '</td>
+            <td style="text-align: center; padding-bottom:10px; padding-top:10px; ">' . $row["end_date"] . '</td>
+        </tr>';
     }
 } else {
     $html .= '<tr><td colspan="5" style="text-align: center;">No Employee Found</td></tr>';

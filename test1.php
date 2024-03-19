@@ -56,9 +56,69 @@ function disableOption(val) {
   .card-body.show {
     max-height: 500px; /* Set to the maximum expected height of the content */
   }
+
+  body,html{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #e74c3c !important;
+    }
+
+    .searchbar{
+    margin-bottom: auto;
+    margin-top: auto;
+    height: 60px;
+    background-color: #353b48;
+    border-radius: 30px;
+    padding: 10px;
+    }
+
+    .search_input{
+    color: white;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 0;
+    caret-color:transparent;
+    line-height: 40px;
+    transition: width 0.4s linear;
+    }
+
+    .searchbar:hover > .search_input{
+    padding: 0 10px;
+    width: 450px;
+    caret-color:red;
+    transition: width 0.4s linear;
+    }
+
+    .searchbar:hover > .search_icon{
+    background: white;
+    color: #e74c3c;
+    }
+
+    .search_icon{
+    height: 40px;
+    width: 40px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color:white;
+    text-decoration:none;
+    }
 </style>
 </head>
 <body>
+<div class="container h-100">
+      <div class="d-flex justify-content-center h-100">
+        <div class="searchbar">
+          <input class="search_input" type="text" name="" placeholder="Search...">
+          <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+        </div>
+      </div>
+    </div>
 
 <div class="container mt-4">
   <div id="accordion">
@@ -116,9 +176,9 @@ function disableOption(val) {
     </div>
   </div>
 =======
-// SQL query for inner join
+<!-- // SQL query for inner join
 $sql = "SELECT * FROM attendance INNER JOIN employee ON employee.Employee_No = attendance.Employee_No WHERE Employee_No";
->>>>>>> 2627c90f430234439532f2c9d69dbf8af5808a5f
+>>>>>>> 2627c90f430234439532f2c9d69dbf8af5808a5f -->
 
   <!-- Link outside of the accordion -->
   <div class="mt-4">
@@ -141,7 +201,22 @@ $sql = "SELECT * FROM attendance INNER JOIN employee ON employee.Employee_No = a
     document.getElementById(sectionId).querySelector('.card-body').classList.add('show');
   }
 </script>
+<div class="input-group">
+  <div class="form-outline" data-mdb-input-init>
+    <input id="search-input" type="search" id="form1" class="form-control" />
+    <label class="form-label" for="form1">Search</label>
+  </div>
+  <button id="search-button" type="button" class="btn btn-primary">
+    <i class="fas fa-search"></i>
+  </button>
+</div>
+<script>
+  // Initialization for ES Users
+import { Input, Ripple, initMDB } from "mdb-ui-kit";
+
+initMDB({ Input, Ripple });
+</script>
 
 </body>
 </html>
->>>>>>> 3586037cb719417189090b7f73ba7d5247d6b7db
+<!-- >>>>>>> 3586037cb719417189090b7f73ba7d5247d6b7db -->
