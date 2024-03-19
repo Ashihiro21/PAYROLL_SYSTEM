@@ -134,7 +134,9 @@ a.sidebar-link:hover {
        background-color: rgba(255, 255, 255, -255);
         border-left: 3px solid #3b7ddd;
 }
-
+.lni lni-users{
+    margin-right:200px
+}
 </style>
 </head>
 
@@ -304,44 +306,6 @@ a.sidebar-link:hover {
         </div>
     </li>
 </div>
-<script>
-        $(document).ready(function () {
-            // Add accordion functionality
-            $('.accordion-button').click(function () {
-                $(this).toggleClass('collapsed');
-                $(this).attr('aria-expanded', $(this).attr('aria-expanded') === 'false' ? 'true' : 'false');
-                var target = $(this).attr('data-bs-target');
-                var treeview = $(target);
-                if (treeview.css('maxHeight') !== '0px') {
-                    treeview.css('maxHeight', '0px');
-                } else {
-                    treeview.css('maxHeight', treeview.prop('scrollHeight') + "px");
-                }
-            });
-
-            // Check if the sidebar is initially collapsed
-            const isSidebarCollapsed = $("#sidebar").hasClass("collapse");
-
-            if (isSidebarCollapsed) {
-                // Hide text for accordion menu items
-                $(".treeview-menu li").each(function() {
-                    $(this).find("a .sidebar-link-text").hide();
-                });
-            }
-
-            // Toggle visibility of text when sidebar is expanded or collapsed
-            $(".toggle-btn").click(function() {
-                $(".treeview-menu li").each(function() {
-                    if (isSidebarCollapsed) {
-                        $(this).find("a .sidebar-link-text").show();
-                    } else {
-                        $(this).find("a .sidebar-link-text").hide();
-                    }
-                });
-            });
-        });
-    </script>
-
 
 
 <script>
