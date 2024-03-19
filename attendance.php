@@ -192,30 +192,35 @@
                     
                 <?php
 // Database connection
-$connection = mysqli_connect("localhost", "root", "");
-$db = mysqli_select_db($connection, 'payroll_system');
 
-// Records per page
-$records_per_page = 5;
+$connection = mysqli_connect("localhost","root","","payroll_system");
+	if (mysqli_connect_errno()){
+		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		die();
+		}
 
-// Determine page number
-$page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1; // Ensure page is at least 1
+if (isset($_GET['page_no']) && $_GET['page_no']!="") {
+	$page_no = $_GET['page_no'];
+	} else {
+		$page_no = 1;
+        }
 
-// Calculate offset for pagination
-$offset = ($page - 1) * $records_per_page;
+	$total_records_per_page = 5;
+    $offset = ($page_no-1) * $total_records_per_page;
+	$previous_page = $page_no - 1;
+	$next_page = $page_no + 1;
+	$adjacents = "2"; 
 
-// Fetch total number of records
-$total_records_query = "SELECT COUNT(*) AS total FROM attendance";
-$total_records_result = mysqli_query($connection, $total_records_query);
-$total_records_row = mysqli_fetch_assoc($total_records_result);
-$total_records = intval($total_records_row['total']); // Convert to integer to avoid type mismatch
+	$result_count = mysqli_query($connection,"SELECT COUNT(*) As total_records FROM attendance ");
+	$total_records = mysqli_fetch_array($result_count);
+	$total_records = $total_records['total_records'];
+    $total_no_of_pages = ceil($total_records / $total_records_per_page);
+	$second_last = $total_no_of_pages - 1; // total page minus 1
 
-// Calculate total number of pages
-$total_pages = ceil($total_records / $records_per_page);
 
 // SQL query with pagination
-$query = "SELECT * FROM attendance ORDER BY id DESC LIMIT $offset, $records_per_page";
-$query_run = mysqli_query($connection, $query);
+    $query = "SELECT * FROM attendance ORDER BY id DESC LIMIT $offset, $total_records_per_page";
+    $query_run = mysqli_query($connection, $query);
 ?>
 
                     <table id="datatableid" class="table table-bordered shadow">
@@ -282,35 +287,95 @@ $query_run = mysqli_query($connection, $query);
                 
             ?>
 
-<?php
-
-
-echo '<div class="pagination">';
-for ($i = 1; $i <= $total_pages; $i++) {
-    if ($i == $records_per_page) {
-        echo '<span class="current">' . $i . '</span>';
-    } else {
-        echo '<a href="nav.php?page=attendance.php&page=' . $i . '">' . $i . '</a>';
-    }
-}
-echo '</div>';
-
-
-?>
                     </table>
-                </div>
+
+
+                
+
+
             </div>
 
     
         </div>
     </div>
+    <strong>Page <?php echo $page_no." of ".$total_no_of_pages; ?></strong>
+                </div>
+
+                <ul class="pagination">
+
+<!-- First Page -->
+<?php // if($page_no > 1){ echo "<li><a href='nav.php?page=attendance.php&page_no=1'>First Page</a></li>"; } ?>
+
+<!-- Previous Page -->
+<li class="page-item <?php if($page_no <= 1) echo 'disabled'; ?>">
+    <a class="page-link" <?php if($page_no > 1) echo "href='nav.php?page=attendance.php&page_no=$previous_page'"; ?>>Previous</a>
+</li>
+
+<!-- Pagination Loop -->
+<?php 
+if ($total_no_of_pages <= 10) {  	 
+    for ($counter = 1; $counter <= $total_no_of_pages; $counter++) {
+        if ($counter == $page_no) {
+            echo "<li class='page-item active'><a class='page-link'>$counter</a></li>";	
+        } else {
+            echo "<li class='page-item'><a class='page-link' href='nav.php?page=attendance.php&page_no=$counter'>$counter</a></li>";
+        }
+    }
+} elseif ($total_no_of_pages > 10) {
+    if ($page_no <= 4) {			
+        for ($counter = 1; $counter < 8; $counter++) {		 
+            if ($counter == $page_no) {
+                echo "<li class='page-item active'><a class='page-link'>$counter</a></li>";	
+            } else {
+                echo "<li class='page-item'><a class='page-link' href='nav.php?page=attendance.php&page_no=$counter'>$counter</a></li>";
+            }
+        }
+        echo "<li class='page-item'><a class='page-link'>...</a></li>";
+        echo "<li class='page-item'><a class='page-link' href='nav.php?page=attendance.php&page_no=$second_last'>$second_last</a></li>";
+        echo "<li class='page-item'><a class='page-link' href='nav.php?page=attendance.php&page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
+    } elseif ($page_no > 4 && $page_no < $total_no_of_pages - 4) {		 
+        echo "<li class='page-item'><a class='page-link' href='nav.php?page=attendance.php&page_no=1'>1</a></li>";
+        echo "<li class='page-item'><a class='page-link' href='nav.php?page=attendance.php&page_no=2'>2</a></li>";
+        echo "<li class='page-item'><a class='page-link'>...</a></li>";
+        for ($counter = $page_no - $adjacents; $counter <= $page_no + $adjacents; $counter++) {			
+            if ($counter == $page_no) {
+                echo "<li class='page-item active'><a class='page-link'>$counter</a></li>";	
+            } else {
+                echo "<li class='page-item'><a class='page-link' href='nav.php?page=attendance.php&page_no=$counter'>$counter</a></li>";
+            }                  
+        }
+        echo "<li class='page-item'><a class='page-link'>...</a></li>";
+        echo "<li class='page-item'><a class='page-link' href='nav.php?page=attendance.php&page_no=$second_last'>$second_last</a></li>";
+        echo "<li class='page-item'><a class='page-link' href='nav.php?page=attendance.php&page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";      
+    } else {
+        echo "<li class='page-item'><a class='page-link' href='nav.php?page=attendance.php&page_no=1'>1</a></li>";
+        echo "<li class='page-item'><a class='page-link' href='nav.php?page=attendance.php&page_no=2'>2</a></li>";
+        echo "<li class='page-item'><a class='page-link'>...</a></li>";
+
+        for ($counter = $total_no_of_pages - 6; $counter <= $total_no_of_pages; $counter++) {
+            if ($counter == $page_no) {
+                echo "<li class='page-item active'><a class='page-link'>$counter</a></li>";	
+            } else {
+                echo "<li class='page-item'><a class='page-link' href='nav.php?page=attendance.php&page_no=$counter'>$counter</a></li>";
+            }                   
+        }
+    }
+}
+?>
+
+<!-- Next Page -->
+<li class="page-item <?php if($page_no >= $total_no_of_pages) echo 'disabled'; ?>">
+    <a class="page-link" <?php if($page_no < $total_no_of_pages) echo "href='nav.php?page=attendance.php&page_no=$next_page'"; ?>>Next</a>
+</li>
+
+<!-- Last Page -->
+<?php if($page_no < $total_no_of_pages) {
+    echo "<li class='page-item'><a class='page-link' href='nav.php?page=attendance.php&page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
+} ?>
+</ul>
 
 
     
-    <?php
-include('./scripts.php');
-
-?>
     
     <script src="build\bootstrap-less\mixins\pagination.less"></script>
 
