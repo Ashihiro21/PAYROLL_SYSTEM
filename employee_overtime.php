@@ -56,23 +56,24 @@
                     </button>
                 </div>
 
-                <form action="updatecode_deduction.php" method="POST">
+                <form action="updatecode_attendance.php" method="POST">
 
                     <div class="modal-body">
 
                         <input type="hidden" name="update_id" id="update_id">
 
+                                       
                         <div class="form-group">
-                            <label> Description </label>
-                            <input type="text" name="description" id="description" class="form-control"
-                                placeholder="Enter Description">
-                        </div>
+                        <label for="admin_approve">Admin Approve</label>
+                        <select name="admin_approve" id="admin_approve" class="form-control">
+                            <option value="Pending">Pending</option>
+                            <option value="Reject">Reject</option>
+                            <option value="Approve">Approve</option>
+        
+                        </select>
+                    </div>
 
-                        <div class="form-group">
-                            <label> Amount </label>
-                            <input type="text" name="amount" id="amount" class="form-control"
-                                placeholder="Enter Amount">
-                        </div>
+                     
 
                         
                     </div>
@@ -86,6 +87,7 @@
         </div>
     </div>
 
+
     <!-- DELETE POP UP FORM (Bootstrap MODAL) -->
     <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -98,7 +100,7 @@
                     </button>
                 </div>
 
-                <form action="deletecode_deduction.php" method="POST">
+                <form action="deletecode_attendance.php" method="POST">
 
                     <div class="modal-body">
 
@@ -115,6 +117,7 @@
             </div>
         </div>
     </div>
+
 
 
     <!-- VIEW POP UP FORM (Bootstrap MODAL) -->
@@ -186,9 +189,7 @@
             $adjacents = "2"; 
         
             $result_count = mysqli_query($connection, "SELECT COUNT(*) AS total_records 
-                                           FROM attendance 
-                                           INNER JOIN employee ON attendance.Employee_No = employee.Employee_No 
-                                           WHERE num_hr > 9");
+                                           FROM attendance WHERE num_hr > 9");
   
 
             $total_records = mysqli_fetch_array($result_count);
@@ -201,7 +202,6 @@
 
 
             $query = "SELECT * FROM attendance 
-            INNER JOIN employee ON attendance.Employee_No = employee.Employee_No 
             WHERE num_hr > 9 
             ORDER BY attendance.id DESC 
             LIMIT $offset, $total_records_per_page";
@@ -212,11 +212,13 @@
                     <table id="datatableid" class="table table-bordered shadow">
                         <thead>
                             <tr>
-                                <th scope="col">Full Name</th>
                                 <th scope="col">Employee ID</th>
                                 <th scope="col">Overtime</th>
                                 <th scope="col">Date</th>
-                                <!-- <th scope="col">Action</th> -->
+                                <th scope="col">Overtime</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Admin Approve</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <?php
@@ -228,17 +230,20 @@
                        <tbody id="tableBody">
                             <tr>
                                 <td class="hide-id"> <?php echo $row['id']; ?> </td>
-                                <td><?php echo $row['first_name'] . ' ' . $row['last_name']; ?></td>
                                 <td> <?php echo $row['Employee_No']; ?> </td>
                                 <td> <?php echo $row['num_hr'] - 9; ?> </td>
                                 <td> <?php echo $row['date']; ?> </td>
-                                <!-- <td>
-                                <button type="button" class="btn btn-info viewbtn"><i class="lni lni-eye"></i></button>
+                                <td> <?php echo $row['overtime']; ?> </td>
+                                <td> <?php echo $row['status']; ?> </td>
+                                <td> <?php echo $row['admin_approve']; ?> </td>
+                                
+                                <td>
+                                <!-- <button type="button" class="btn btn-info viewbtn"><i class="lni lni-eye"></i></button> -->
 
                                 <button type="button" class="btn btn-success editbtn"><i class="lni lni-pencil"></i></button>
 
                                 <button type="button" class="btn btn-danger deletebtn"><i class="lni lni-trash-can"></i></button>
-                                </td> -->
+                                </td>
                             </tr>
                         </tbody>
                         <?php           
