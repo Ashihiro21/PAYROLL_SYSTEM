@@ -25,19 +25,21 @@ if ($conn->connect_error) {
 $sql = "SELECT *, SUM(amount) as total_amount FROM deduction";
                     $query = $conn->query($sql);
                     $drow = $query->fetch_assoc();
+                    $deduction = $drow['total_amount'];
   
                     
                     $to = date('Y-m-d');
                     $from = date('Y-m-d', strtotime('-30 day', strtotime($to)));
 
-$sql = "SELECT *, attendance as total_attendance FROM deduction";
+                    $sql = "SELECT *, CONCAT(first_name, ' ', last_name) AS names FROM employee";
                     $query = $conn->query($sql);
                     $drow = $query->fetch_assoc();
+                    $names = $drow['names'];
+                    
   
                     
                     $to = date('Y-m-d');
                     $from = date('Y-m-d', strtotime('-30 day', strtotime($to)));
-
 
 
 
@@ -78,8 +80,8 @@ $result = $conn->query($sql);
 
 <table>
     <tr>
-        <th>Date</th>
-        <!-- <th>Employee Name</th> -->
+        <th>Deduction</th>
+        <th>Employee Name</th>
         <!-- <th>Position</th> -->
         <!-- <th>Rate</th> -->
     </tr>
@@ -88,7 +90,8 @@ $result = $conn->query($sql);
         // output data of each row
         while($row = $result->fetch_assoc()) {
             echo "<tr>";
-            echo "<td>" . $row["total_amount"]. "</td>";
+            echo "<td>" . $deduction. "</td>";
+            echo "<td>" .$names. "</td>";
             echo "</tr>";
         }
     } else {

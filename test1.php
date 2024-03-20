@@ -1,33 +1,41 @@
 <?php
-// Database connection parameters
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "payroll_system";
+// Connect to database
+$host = 'localhost';
+$username = 'root';
+$password = '';
+$database = 'payroll_system';
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $database);
+$connection = mysqli_connect($host, $username, $password, $database);
 
 // Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if (!$connection) {
+    die("Connection failed: " . mysqli_connect_error());
 }
 
-// SQL query to get the row count from a table
-$sql = "SELECT COUNT(*) AS count FROM attendance WHERE overtime";
+// Fetch data from users table
+$users_query = "SELECT * FROM employee";
+$users_result = mysqli_query($connection, $users_query);
 
-// Execute query
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // Fetch the result
-    $row = $result->fetch_assoc();
-    // Output the row count
-    echo "Total rows: " . $row["count"];
-} else {
-    echo "0 results";
+echo "<h2>Users</h2>";
+echo "<table border='1'>";
+echo "<tr><th>ID</th><th>First Name</th><th>Email</th></tr>";
+while ($row = mysqli_fetch_assoc($users_result)) {
+    echo "<tr><td>".$row['id']."</td><td>".$row['first_name']."</td><td>".$row['email']."</td></tr>";
 }
+echo "</table>";
+
+// Fetch data from orders table
+$orders_query = "SELECT * FROM attendance";
+$orders_result = mysqli_query($connection, $orders_query);
+
+echo "<h2>Orders</h2>";
+echo "<table border='1'>";
+echo "<tr><th>ID</th><th>Employee ID</th><th>Number of Hour</th><th>Status</th></tr>";
+while ($row = mysqli_fetch_assoc($orders_result)) {
+    echo "<tr><td>".$row['id']."</td><td>".$row['Employee_No']."</td><td>".$row['num_hr']."</td><td>".$row['status']."</td></tr>";
+}
+echo "</table>";
 
 // Close connection
-$conn->close();
+mysqli_close($connection);
 ?>
