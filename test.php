@@ -103,3 +103,13 @@
 
 </body>
 </html>
+
+<!-- $sql = "SELECT *, SUM(amount) as total_amount FROM deductions";
+                    $query = $conn->query($sql);
+                    $drow = $query->fetch_assoc();
+                    $deduction = $drow['total_amount'];
+  
+                    
+                    $to = date('Y-m-d');
+                    $from = date('Y-m-d', strtotime('-30 day', strtotime($to)));
+ -->
