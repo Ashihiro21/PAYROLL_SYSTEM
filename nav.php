@@ -138,10 +138,6 @@ a.sidebar-link:hover {
     margin-right:200px
 }
 
-.count{
-    font-size: 20px;
-  
-}
 </style>
 </head>
 
@@ -205,7 +201,8 @@ a.sidebar-link:hover {
                                         $rowCount = $row['row_count'];
                                         
                                         // Output the row count
-                                        echo '<span class="count">' . $rowCount . '</span>';
+                                        echo '<span class="count badge badge-danger" style="font-size: 15px;">' . $rowCount . '</span>';
+
 
                                   
                                  

@@ -202,7 +202,7 @@
 
 
             $query = "SELECT * FROM attendance 
-            WHERE num_hr > 9 
+            WHERE overtime
             ORDER BY attendance.id DESC 
             LIMIT $offset, $total_records_per_page";
   
