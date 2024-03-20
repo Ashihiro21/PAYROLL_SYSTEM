@@ -138,10 +138,6 @@ a.sidebar-link:hover {
     margin-right:200px
 }
 
-.count{
-    font-size: 20px;
-  
-}
 </style>
 </head>
 
@@ -195,7 +191,7 @@ a.sidebar-link:hover {
                                         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                                     
                                         // Prepare the SQL query
-                                        $stmt = $conn->prepare("SELECT COUNT(*) AS row_count FROM attendance WHERE overtime AND date = CURDATE()");
+                                        $stmt = $conn->prepare("SELECT COUNT(*) AS row_count FROM attendance WHERE overtime AND date = CURDATE() AND admin_approve = 'pending' ");
                                         
                                         // Execute the query
                                         $stmt->execute();
@@ -205,7 +201,8 @@ a.sidebar-link:hover {
                                         $rowCount = $row['row_count'];
                                         
                                         // Output the row count
-                                        echo '<span class="count">' . $rowCount . '</span>';
+                                        echo '<span class="count badge badge-danger" style="font-size: 15px;">' . $rowCount . '</span>';
+
 
                                   
                                  

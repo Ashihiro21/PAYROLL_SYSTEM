@@ -104,7 +104,7 @@
         <label for="Employee_No">Employee No:</label>
         <input type="text" id="Employee_No" name="Employee_No" required><br><br>
         <label for="Employee_No">Location:</label>
-        <input type="text" id="location" name="location"><br><br>
+        <input type="text" id="location" name="location" required><br><br>
         <label for="log_type">Select Time Type:</label>
         <select id="log_type" name="log_type">
             <option value="time_in">Time In AM</option>

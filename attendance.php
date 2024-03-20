@@ -290,8 +290,8 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
                                 <th scope="col" class="hide-sm">TIME OUT PM</th>
                                 <th scope="col">NUMBER OF HOURS</th>
                                 <th scope="col">STATUS</th>
-                                <th scope="col">APROVAL</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">DATE</th>
+    
                             </tr>
                         </thead>
                         <?php
@@ -304,6 +304,7 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
                             <tr>
                                 <td class="hide-id"> <?php echo $row['id']; ?> </td>
                                 <td> <?php echo $row['Employee_No']; ?> </td>
+                                <td> <?php echo $row['first_name']." ".$row['last_name']; ?> </td>
                                                                                 <?php
                                                 // Assuming $row is the array containing time values
 
@@ -322,15 +323,8 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
                                                 ?>
 
                                 <td><?php echo $row['num_hr'] - 1; ?></td>
-                                <td> <?php echo $row['status']; ?> </td>
-                                <td> <?php echo $row['admin_approve']; ?> </td>
-                                <td>
-                                <!-- <button type="button" class="btn btn-info viewbtn"><i class="lni lni-eye"></i></button> -->
-
-                                <button type="button" class="btn btn-success editbtn"><i class="lni lni-pencil"></i></button>
-
-                                <button type="button" class="btn btn-danger deletebtn"><i class="lni lni-trash-can"></i></button>
-                                </td>
+                                <td><?php echo $row['status']; ?></td>
+                                <td><?php echo $row['date']; ?></td>
                             </tr>
                         </tbody>
                         <?php           
