@@ -162,7 +162,7 @@
                         ADD DATA
                     </button> -->
                     <input type="text" class="float-right" id="searchInput" placeholder="Search...">
-                    <a class="btn btn-primary float-left" href="generate_pdf_employee_leaves_displays_leaves.php" download>Download PDF</a>
+                    <a class="btn btn-primary float-left" href="generate_pdf_employees_leaves.php" download>Download PDF</a>
                 </div>
             </div>
 
