@@ -31,15 +31,14 @@ $sql = "SELECT *, SUM(amount) as total_amount FROM deduction";
                     $to = date('Y-m-d');
                     $from = date('Y-m-d', strtotime('-30 day', strtotime($to)));
 
-                    $sql = "SELECT *, CONCAT(first_name, ' ', last_name) AS names FROM employee";
-                    $query = $conn->query($sql);
-                    $drow = $query->fetch_assoc();
-                    $names = $drow['names'];
-                    
+// $sql = "SELECT *, first_name as names  FROM employee";
+//                     $query = $conn->query($sql);
+//                     $drow = $query->fetch_assoc();
+//                     $names = $drow['names'];
   
                     
-                    $to = date('Y-m-d');
-                    $from = date('Y-m-d', strtotime('-30 day', strtotime($to)));
+//                     $to = date('Y-m-d');
+//                     $from = date('Y-m-d', strtotime('-30 day', strtotime($to)));
 
 
 
@@ -91,7 +90,7 @@ $result = $conn->query($sql);
         while($row = $result->fetch_assoc()) {
             echo "<tr>";
             echo "<td>" . $deduction. "</td>";
-            echo "<td>" .$names. "</td>";
+            // echo "<td>" .$names. "</td>";
             echo "</tr>";
         }
     } else {
