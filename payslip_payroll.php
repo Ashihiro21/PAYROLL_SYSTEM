@@ -15,10 +15,32 @@ if ($conn->connect_error) {
 }
 
 // SQL query to fetch attendance data with INNER JOIN
-$sql = "SELECT attendance.*, employee.*, position.*, employee.first_name
-        FROM attendance 
-        INNER JOIN employee ON attendance.Employee_No = employee.Employee_No
-        LEFT JOIN position ON position.position = employee.position";
+// $sql = "SELECT attendance.*, employee.*, position.*, employee.first_name
+//         FROM attendance 
+//         INNER JOIN employee ON attendance.Employee_No = employee.Employee_No
+//         LEFT JOIN position ON position.position = employee.position";
+
+
+
+$sql = "SELECT *, SUM(amount) as total_amount FROM deduction";
+                    $query = $conn->query($sql);
+                    $drow = $query->fetch_assoc();
+  
+                    
+                    $to = date('Y-m-d');
+                    $from = date('Y-m-d', strtotime('-30 day', strtotime($to)));
+
+$sql = "SELECT *, attendance as total_attendance FROM deduction";
+                    $query = $conn->query($sql);
+                    $drow = $query->fetch_assoc();
+  
+                    
+                    $to = date('Y-m-d');
+                    $from = date('Y-m-d', strtotime('-30 day', strtotime($to)));
+
+
+
+
 
 
 
@@ -57,19 +79,16 @@ $result = $conn->query($sql);
 <table>
     <tr>
         <th>Date</th>
-        <th>Employee Name</th>
-        <th>Position</th>
-        <th>Rate</th>
+        <!-- <th>Employee Name</th> -->
+        <!-- <th>Position</th> -->
+        <!-- <th>Rate</th> -->
     </tr>
     <?php
     if ($result->num_rows > 0) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
             echo "<tr>";
-            echo "<td>" . $row["date"]. "</td>";
-            echo "<td>" . $row["first_name"].$row["last_name"]. "</td>";
-            echo "<td>" . $row["position"]. "</td>";
-            echo "<td>" . $row["rate"]. "</td>";
+            echo "<td>" . $row["total_amount"]. "</td>";
             echo "</tr>";
         }
     } else {
