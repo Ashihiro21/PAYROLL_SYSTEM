@@ -31,7 +31,7 @@ if(isset($_POST['updatedata'])) {
     // Check if the query executed successfully
     if($query_run) {
         echo '<script> alert("Data Updated"); </script>';
-        header("Location: nav.php?page=attendance.php");
+        header("Location: nav.php?page=employee_overtime.php");
     } else {
         echo '<script> alert("Data Not Updated"); </script>';
     }
