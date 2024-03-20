@@ -285,6 +285,7 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
                                 <th scope="col" class="hide-sm">TIME IN PM</th>
                                 <th scope="col" class="hide-sm">TIME OUT PM</th>
                                 <th scope="col">NUMBER OF HOURS</th>
+                                <th scope="col">LOCATION</th>
                                 <th scope="col">STATUS</th>
                                 <th scope="col">APROVAL</th>
                                 <th scope="col">Action</th>
