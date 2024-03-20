@@ -68,6 +68,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         WHERE Employee_No=? AND date = CURDATE()";
 
 
+    } elseif ($logType == "overtime") {
+        // Update query corrected
+        $sql = "UPDATE attendance 
+        SET 
+        location = ?,  overtime = ?, 
+            num_hr = overtime - time_in, 
+            status = CASE 
+                        WHEN overtime - time_in >= 10 THEN 'overtime'                     
+                     END
+        WHERE Employee_No=? AND date = CURDATE()";
+
     } elseif ($logType == "time_out2") {
         // Update query corrected
         $sql = "UPDATE attendance 
@@ -96,6 +107,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } elseif ($logType == "time_out") {
             $stmt->bind_param("sss", $location, $time, $employeeNo);
         }elseif ($logType == "time_in2") {
+            $stmt->bind_param("sss", $location, $time, $employeeNo);
+        }elseif ($logType == "overtime") {
             $stmt->bind_param("sss", $location, $time, $employeeNo);
         }elseif ($logType == "time_out2") {
             $stmt->bind_param("sss", $location, $time, $employeeNo);
