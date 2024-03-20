@@ -299,10 +299,10 @@ $email = $row['email'];
                 // Now you have $page_no, $total_no_of_pages, $previous_page, and $next_page available for use in your pagination display
                 
                 $email = mysqli_real_escape_string($connection, $_SESSION['email']);
-                $query = "SELECT employee.*, attendance.*
+                $query = "SELECT * FROM attendance
                 FROM `employee`
                 INNER JOIN attendance ON employee.Employee_No = attendance.Employee_No
-                WHERE employee.email = '$email' AND (admin_approve = 'Reject' OR admin_approve = 'Approve')
+                WHERE  AND (admin_approve = 'Reject' OR admin_approve = 'Approve')
                 ORDER BY employee.id DESC
                 LIMIT $offset, $total_records_per_page";
 

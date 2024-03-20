@@ -203,7 +203,7 @@
 
             $query = "SELECT * FROM attendance 
             WHERE overtime
-            ORDER BY attendance.id DESC 
+            ORDER BY id DESC 
             LIMIT $offset, $total_records_per_page";
   
       
@@ -230,9 +230,8 @@
                             <tr>
                                 <td class="hide-id"> <?php echo $row['id']; ?> </td>
                                 <td> <?php echo $row['Employee_No']; ?> </td>
-                                <td> <?php echo $row['num_hr'] - 9; ?> </td>
                                 <td> <?php echo $row['date']; ?> </td>
-                                <td> <?php echo $row['overtime']; ?> </td>
+                                <td> <?php echo $row['num_hr'] - 9; ?> </td>
                                 <td> <?php echo $row['status']; ?> </td>
                                 <td> <?php echo $row['admin_approve']; ?> </td>
                                 

@@ -54,7 +54,8 @@ $html .= '<table border="1">
                 <th>Time Out AM</th>
                 <th>Time IN PM</th>
                 <th>Time Out PM</th>
-                <th>Number of Hours OT</th>
+                <th>Number of Hours</th>
+                <th>STATUS</th>
                 <th>Date</th>
             </tr>';
 if ($result->num_rows > 0) {
@@ -70,6 +71,7 @@ if ($result->num_rows > 0) {
                     <td>' . date('h:i A', strtotime($row["time_in2"])) . '</td>
                     <td>' . date('h:i A', strtotime($row["time_out2"])) . '</td>
                     <td>' . $overtime_hours . '</td>
+                    <td>' . $row["status"] . '</td>
                     <td>' . $row["date"] . '</td>
                   </tr>';
     }
