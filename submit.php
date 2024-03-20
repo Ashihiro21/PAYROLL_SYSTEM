@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             status = CASE 
                         WHEN time_out - time_in >= 10 THEN 'overtime' 
                         WHEN time_out - time_in >= 9 AND time_out - time_in <= 10 THEN 'regular'                     
-                        WHEN time_out - time_in > 0 AND time_out - time_in <= 8 THEN 'undertime'                     
+                        WHEN time_out - time_in <= 8 THEN 'undertime'                     
                      END
         WHERE Employee_No=? AND date = CURDATE()";
 
@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             status = CASE 
                         WHEN time_in2 -  time_in >= 10 THEN 'overtime' 
                         WHEN time_in2 -  time_in >= 9 AND time_in2 -  time_in <=10 THEN 'regular' 
-                        WHEN time_in2 -  time_in > 0 AND time_in2 -  time_in <=8 THEN 'undertime' 
+                        WHEN time_in2 -  time_in <=8 THEN 'undertime' 
                      END
         WHERE Employee_No=? AND date = CURDATE()";
 
@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             status = CASE 
                         WHEN time_out2 - time_in >= 10 THEN 'overtime' 
                         WHEN time_out2 - time_in >= 9 AND time_out2 - time_in <= 10 THEN 'regular'                     
-                        WHEN time_out2 - time_in > 0 AND time_out2 - time_in <= 8 THEN 'undertime'                     
+                        WHEN time_out2 - time_in <= 8 THEN 'undertime'                     
                      END
         WHERE Employee_No=? AND date = CURDATE()";
 
