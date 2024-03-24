@@ -315,14 +315,15 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
                                                     // If at least one time value is not empty or null, print the time values
                                                     ?>
                                                     <td> <?php echo !empty($row['time_in']) ? date('h:i A', strtotime($row['time_in'])) : ''; ?> </td>
-                                                    <td> <?php echo !empty($row['time_out']) ? date('h:i A', strtotime($row['time_out'])) : ''; ?> </td>
-                                                    <td> <?php echo !empty($row['time_in2']) ? date('h:i A', strtotime($row['time_in2'])) : ''; ?> </td>
-                                                    <td> <?php echo !empty($row['time_out2']) ? date('h:i A', strtotime($row['time_out2'])) : ''; ?> </td>
+                                                    <td> <?php echo !empty($row['time_out']) ? date('h:i A', strtotime($row['time_out'])) : 'No Time Out'; ?> </td>
+                                                    <td> <?php echo !empty($row['time_in2']) ? date('h:i A', strtotime($row['time_in2'])) : 'No Time In'; ?> </td>
+                                                    <td> <?php echo !empty($row['time_out2']) ? date('h:i A', strtotime($row['time_out2'])) : 'No Time Out'; ?> </td>
                                                     <?php
                                                 }
                                                 ?>
 
-                                <td><?php echo $row['num_hr'] - 1; ?></td>
+                                <td><?php echo ($row['num_hr'] <= 1) ? 0 : ($row['num_hr'] - 1); ?></td>
+
                                 <td><?php echo $row['status']; ?></td>
                                 <td><?php echo $row['date']; ?></td>
                             </tr>

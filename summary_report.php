@@ -16,13 +16,15 @@ if ($conn->connect_error) {
 
 
 
-
 // Query to get total deduction amount
 $sql = "SELECT SUM(amount) as total_amount FROM deduction";
 $query = $conn->query($sql);
 $drow = $query->fetch_assoc();
 $deduction = $drow['total_amount'];
 
+
+
+$email = mysqli_real_escape_string($conn, $_SESSION['email']);
 
 // Query to get attendance information
 $sql = "
@@ -32,17 +34,20 @@ SELECT
     attendance.date,
     COALESCE(total_hours.total_hours, 0) AS total_hours,
     COALESCE(total_overtime.total_overtime, 0) AS total_overtime,
+    position.rate AS position_rate,
     COUNT(DISTINCT employee_leaves.leave_type) AS leave_count
 FROM 
     employee
 LEFT JOIN 
     attendance ON employee.Employee_No = attendance.Employee_No
 LEFT JOIN 
+    position ON employee.position_id = position.id
+LEFT JOIN 
     employee_leaves ON employee.Employee_No = employee_leaves.Employee_No AND employee_leaves.status = 'Approve'
 LEFT JOIN
     (SELECT 
         Employee_No,
-        CASE WHEN SUM(num_hr) > 9 THEN SUM(num_hr - 1) ELSE 0 END AS total_hours
+        SUM(num_hr - 1) AS total_hours
     FROM 
         attendance
     WHERE 
@@ -52,7 +57,7 @@ LEFT JOIN
 LEFT JOIN
     (SELECT 
         Employee_No,
-        CASE WHEN SUM(num_hr) > 9 THEN SUM(num_hr - 9) ELSE 0 END AS total_overtime
+        SUM(num_hr - 9) AS total_overtime
     FROM 
         attendance
     WHERE 
@@ -60,13 +65,10 @@ LEFT JOIN
     GROUP BY 
         Employee_No) AS total_overtime ON employee.Employee_No = total_overtime.Employee_No
 WHERE 
-    MONTH(attendance.date) = MONTH(CURDATE())
+employee.email = '$email' AND MONTH(attendance.date) = MONTH(CURDATE())
 GROUP BY 
-    employee.Employee_No, full_name;
+    employee.Employee_No, full_name, position_rate;
 ";
-
-
-
 
 
 
@@ -112,17 +114,17 @@ $result = $conn->query($sql);
 <body>
 
 
-<a class="btn btn-primary float-left" href="generate_payroll.php" download>Download PDF</a>
+<a class="btn btn-primary float-left" href="generate_employee_payroll.php" download>Download PDF</a>
 <h2>Payroll Table</h2>
 
 <table>
     <tr>
-        <th>Employee Name</th>
-        <th>Employee ID</th>
+        <!-- <th>Employee Name</th>
+        <th>Employee ID</th> -->
         <th>Number of Hours</th>
-        <!-- <th>Rate</th> -->
-        <!-- <th>Deduction</th> -->
-        <!-- <th>Basic Salary</th> -->
+        <!-- <th>Rate</th>
+        <th>Deduction</th>
+        <th>Basic Salary</th> -->
         <th>Overtime</th>
         <th>Leaves</th>
         <!-- <th>Net</th> -->
@@ -174,8 +176,8 @@ if ($result->num_rows > 0) {
 
 
             echo "<tr>";
-            echo "<td>" . $row['full_name'] . "</td>";
-            echo "<td>" . $row['Employee_No'] . "</td>";
+            // echo "<td>" . $row['full_name'] . "</td>";
+            // echo "<td>" . $row['Employee_No'] . "</td>";
             echo "<td>" . $row['total_hours'] . "</td>";
             // echo "<td>" . $row['position_rate'] . "</td>";
             // echo "<td>" . $deduction . "</td>";

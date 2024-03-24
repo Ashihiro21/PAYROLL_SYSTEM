@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collapsible Sidebar with Dropdown Accordion</title>
+<link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+<style>
+  /* Style for the sidebar */
+  .sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+
+  /* Style for the sidebar links */
+  .sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+
+  /* Style for the sidebar links on hover */
+  .sidebar a:hover {
+    color: #f1f1f1;
+  }
+
+  /* Style for the close button */
+  .close-btn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+  /* Style for the open button */
+  .open-btn {
+    font-size: 30px;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    left: 25px;
+  }
+
+  /* Style for the accordion content */
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  /* Style for the accordion content when expanded */
+  .expanded {
+    max-height: 500px; /* Adjust as needed */
+  }
+
+  /* Hide the accordion text by default */
+  .accordion-text {
+    display: none;
+  }
+
+  /* Show the accordion text when active */
+  .active .accordion-text {
+    display: inline;
+  }
+
+  /* Style for the accordion icon */
+  .accordion-icon {
+    display: inline-block;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+
+<div class="sidebar" id="sidebar">
+  <a href="#" class="close-btn" onclick="closeNav()">&times;</a>
+  <a href="#"><i class="lni lni-home"></i> Home</a>
+  <a href="#" class="accordion-header">
+    <div class="accordion-icon">&#9662;</div>
+    <span class="accordion-text">About</span>
+  </a>
+  <div class="accordion-content">
+    <a href="#"><i class="lni lni-shield"></i> About Us</a>
+    <a href="#"><i class="lni lni-shield"></i> Our Team</a>
+    <a href="#"><i class="lni lni-shield"></i> Mission</a>
+  </div>
+  <a href="#"><i class="lni lni-briefcase"></i> Services</a>
+  <a href="#"><i class="lni lni-envelope"></i> Contact</a>
+</div>
+
+<div class="open-btn" onclick="openNav()"><i class="lni lni-menu"></i></div>
+
+<script>
+  function openNav() {
+    document.getElementById("sidebar").style.width = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("sidebar").style.width = "0";
+  }
+
+  // Get all the accordion headers
+  const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+  // Loop through each accordion header and add a click event listener
+  accordionHeaders.forEach(header => {
+    header.addEventListener('click', () => {
+      const content = header.nextElementSibling;
+      header.classList.toggle('active');
+      content.classList.toggle('expanded');
+    });
+  });
+</script>
+
+</body>
+</html>

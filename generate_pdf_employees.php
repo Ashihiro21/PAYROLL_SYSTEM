@@ -32,7 +32,7 @@ if ($conn->connect_error) {
 }
 
 // Query to fetch users from the database
-$sql = "SELECT id, Employee_No, first_name, last_name, department, position FROM employee";
+$sql = "SELECT id, Employee_No, first_name, last_name, department, position_id FROM employee";
 $result = $conn->query($sql);
 
 // Output data of each row
@@ -46,11 +46,13 @@ $html .= '<table border="1" style="width: 100%; border-collapse: collapse;">
             </tr>';
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+
+        
         $html .= '<tr>
                     <td style="text-align: center; padding-bottom:10px; padding-top:10px; ">' . $row["Employee_No"] . '</td>
                     <td style="text-align: center; padding-bottom:10px; padding-top:10px; ">' . $row["first_name"] . ' ' . $row["last_name"] . '</td>
                     <td style="text-align: center; padding-bottom:10px; padding-top:10px; ">' . $row["department"] . '</td>
-                    <td style="text-align: center; padding-bottom:10px; padding-top:10px; ">' . $row["position"] . '</td>
+                    <td style="text-align: center; padding-bottom:10px; padding-top:10px; ">' . $row["position_id"] . '</td>
                   </tr>';
     }
 } else {

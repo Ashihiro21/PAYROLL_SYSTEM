@@ -144,7 +144,7 @@ a.sidebar-link:hover {
 <body>
     <div class="header" style="padding:1rem">
     
-        <h1 class='tittle'>Payroll Management System
+        <h1 class='tittle float-center'>Payroll Management System
         
         
         <?php
@@ -372,12 +372,12 @@ a.sidebar-link:hover {
 
 
             
-            <li class="sidebar-item">
+            <!-- <li class="sidebar-item">
                 <a href="?page=deduction.php" class="sidebar-link"<?php if ($page === 'deduction.php') echo ' class="active"'; ?>>
-                    <i class="lni lni-bar-chart"></i> <!-- Change this line to set a different icon -->
+                    <i class="lni lni-bar-chart"></i>
                     <span>Deduction</span>
                 </a>
-            </li>
+            </li> -->
             <li class="sidebar-item">
             <a href="?page=holiday.php" class="sidebar-link"<?php if ($page === 'holiday.php') echo ' class="active"'; ?>>
                 <i class="lni lni-calendar"></i> <!-- Replace with the new Font Awesome icon class -->
@@ -387,19 +387,19 @@ a.sidebar-link:hover {
             <li class="sidebar-item">
             <a href="?page=payslip_payroll.php" class="sidebar-link"<?php if ($page === 'payslip_payroll.php') echo ' class="active"'; ?>>
                 <i class="lni lni-files"></i> <!-- Replace with the new Font Awesome icon class -->
-                <span>Payslip and Payroll</span>
+                <span>Summary Report</span>
             </a>
         </li>
         </li>
            
         
-        </li>
+        <!-- </li>
             <li class="sidebar-item">
             <a href="?page=position.php" class="sidebar-link"<?php if ($page === 'position.php') echo ' class="active"'; ?>>
                 <i class="lni lni-briefcase"></i>
                 <span>Position</span>
             </a>
-        </li>
+        </li> -->
             <li class="sidebar-item">
             <a href="?page=leave.php" class="sidebar-link"<?php if ($page === 'leave.php') echo ' class="active"'; ?>>
                 <i class="lni lni-hourglass"></i>

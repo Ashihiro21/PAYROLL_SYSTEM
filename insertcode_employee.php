@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
     $department = $_POST['department'];
-    $position = $_POST['position'];
+    $position_id = $_POST['position_id'];
     $email = $_POST['email']; // Add email field in your HTML form
     $password = generateRandomNumber(); // Generate numeric password
 
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Move uploaded file to target directory
     if (move_uploaded_file($_FILES["images"]["tmp_name"], $target_file)) {
         // Insert user data into the database
-        $insert_sql = "INSERT INTO employee (Employee_No, first_name, last_name, department, position, images, email, password) VALUES (:Employee_No, :first_name, :last_name, :department, :position, :images, :email, :password)";
+        $insert_sql = "INSERT INTO employee (Employee_No, first_name, last_name, department, position_id, images, email, password) VALUES (:Employee_No, :first_name, :last_name, :department, :position_id, :images, :email, :password)";
 
         // Prepare and bind the statement
         $insert_stmt = $conn->prepare($insert_sql);
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $insert_stmt->bindParam(':first_name', $first_name);
         $insert_stmt->bindParam(':last_name', $last_name);
         $insert_stmt->bindParam(':department', $department);
-        $insert_stmt->bindParam(':position', $position);
+        $insert_stmt->bindParam(':position_id', $position_id);
         $insert_stmt->bindParam(':images', $target_file);
         $insert_stmt->bindParam(':email', $email);
         $insert_stmt->bindParam(':password', $password);

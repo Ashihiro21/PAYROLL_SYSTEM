@@ -54,7 +54,7 @@ $username = $_SESSION['email'];
 
 $stmt = $conn->prepare("SELECT employee.*, attendance.*
 FROM employee
-INNER JOIN attendance ON employee.Employee_No = attendance.Employee_No
+LEFT JOIN attendance ON employee.Employee_No = attendance.Employee_No
 WHERE employee.email = ?
 ");
 $stmt->bind_param("s", $_SESSION['email']);
@@ -290,21 +290,23 @@ $email = $row['email'];
                 $next_page = $page_no + 1;
                 $adjacents = 2;
                 
-                $result_count = mysqli_query($connection, "SELECT COUNT(*) As total_records FROM employee_leaves WHERE email = '$email'");
+                $result_count = mysqli_query($connection, "SELECT COUNT(*) As total_records FROM employee INNER JOIN attendance ON employee.Employee_No = attendance.Employee_No WHERE employee.email = '$email'");
+
                 $total_records = mysqli_fetch_array($result_count);
                 $total_records = $total_records['total_records'];
                 $total_no_of_pages = ceil($total_records / $total_records_per_page);
                 $second_last = $total_no_of_pages - 1; // total page minus 1
-                
-                // Now you have $page_no, $total_no_of_pages, $previous_page, and $next_page available for use in your pagination display
-                
+
+
+
                 $email = mysqli_real_escape_string($connection, $_SESSION['email']);
-                $query = "SELECT * FROM attendance
-                FROM `employee`
+
+                $query = "SELECT employee.*, attendance.*
+                FROM employee
                 INNER JOIN attendance ON employee.Employee_No = attendance.Employee_No
-                WHERE  AND (admin_approve = 'Reject' OR admin_approve = 'Approve')
-                ORDER BY employee.id DESC
-                LIMIT $offset, $total_records_per_page";
+                WHERE employee.email = '$email' ORDER BY employee.id DESC
+                LIMIT $offset, $total_records_per_page;
+                ";
 
       
             

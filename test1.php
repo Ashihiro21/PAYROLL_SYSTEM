@@ -1,41 +1,56 @@
 <?php
-// Connect to database
-$host = 'localhost';
-$username = 'root';
-$password = '';
-$database = 'payroll_system';
 
-$connection = mysqli_connect($host, $username, $password, $database);
+// Database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "payroll_system";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
-if (!$connection) {
-    die("Connection failed: " . mysqli_connect_error());
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch data from users table
-$users_query = "SELECT * FROM employee";
-$users_result = mysqli_query($connection, $users_query);
-
-echo "<h2>Users</h2>";
-echo "<table border='1'>";
-echo "<tr><th>ID</th><th>First Name</th><th>Email</th></tr>";
-while ($row = mysqli_fetch_assoc($users_result)) {
-    echo "<tr><td>".$row['id']."</td><td>".$row['first_name']."</td><td>".$row['email']."</td></tr>";
+// Function to calculate number of attendance days
+function calculateAttendanceDays($startDate, $endDate) {
+    // Convert date strings to DateTime objects
+    $startDateTime = new DateTime($startDate);
+    $endDateTime = new DateTime($endDate);
+    
+    // Calculate the difference in days
+    $interval = $startDateTime->diff($endDateTime);
+    
+    // Add 1 to include both start and end dates
+    $attendanceDays = $interval->days;
+    
+    return $attendanceDays;
 }
-echo "</table>";
 
-// Fetch data from orders table
-$orders_query = "SELECT * FROM attendance";
-$orders_result = mysqli_query($connection, $orders_query);
+// Retrieve attendance records from database
+$sql = "SELECT 
+MIN(date) AS start_date, 
+MAX(date) AS end_date 
+FROM 
+attendance 
+WHERE 
+MONTH(date) = MONTH(CURRENT_DATE())";
+$result = $conn->query($sql);
 
-echo "<h2>Orders</h2>";
-echo "<table border='1'>";
-echo "<tr><th>ID</th><th>Employee ID</th><th>Number of Hour</th><th>Status</th></tr>";
-while ($row = mysqli_fetch_assoc($orders_result)) {
-    echo "<tr><td>".$row['id']."</td><td>".$row['Employee_No']."</td><td>".$row['num_hr']."</td><td>".$row['status']."</td></tr>";
+if ($result->num_rows > 0) {
+    // Output data of the single row
+    $row = $result->fetch_assoc();
+    
+    // Calculate number of attendance days for the date range
+    $attendanceDays = calculateAttendanceDays($row["start_date"], $row["end_date"]);
+    echo "Number of Attendance Days: " . $attendanceDays . "<br>";
+} else {
+    echo "0 results";
 }
-echo "</table>";
 
-// Close connection
-mysqli_close($connection);
+// Close database connection
+$conn->close();
+
 ?>

@@ -95,13 +95,13 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Edit employee_leaves_display Data </h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> Edit Employee Leaves Data </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
-                <form action="updatecode_employee_leaves_display_leaves_display.php" method="POST">
+                <form action="updatecode_employee_leaves_display.php" method="POST">
 
                     <div class="modal-body">
 
@@ -144,7 +144,7 @@
                     </button>
                 </div>
 
-                <form action="deletecode_deduction.php" method="POST">
+                <form action="deletecode_employee_leaves_display.php" method="POST">
 
                     <div class="modal-body">
 
@@ -198,7 +198,7 @@
     <div class="container-fluid">
         <div class="jumbotron bg-light shadow border border-secondary">
             <div class="card bg-light" style="border-color: transparent;">
-                <h2> employee_leaves_display Leaves </h2>
+                <h2> Employee Leaves </h2>
             </div>
             <div class="card bg-light" style="border-color: transparent;">
                 <div class="card-body bg-light">

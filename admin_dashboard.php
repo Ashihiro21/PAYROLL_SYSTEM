@@ -34,9 +34,9 @@ include_once("connection.php");
 $employeeQuery = "SELECT COUNT(*) as employeeCount FROM employee";
 $employeeResult = $conn->query($employeeQuery);
 
-// Query to get the count of deductions
-$deductionQuery = "SELECT COUNT(*) as deductionCount FROM deduction";
-$deductionResult = $conn->query($deductionQuery);
+// Query to get the count of employee_leavess
+$employee_leavesQuery = "SELECT COUNT(*) as employee_leavesCount FROM employee_leaves";
+$employee_leavesResult = $conn->query($employee_leavesQuery);
 
 $holidayQuery = "SELECT COUNT(*) as holidayCount FROM holiday";
 $holidayResult = $conn->query($holidayQuery);
@@ -48,11 +48,11 @@ $scheduleResult = $conn->query($scheduleQuery);
 $positionQuery = "SELECT COUNT(*) as positionCount FROM position";
 $positionResult = $conn->query($positionQuery);
 
-if ($employeeResult && $deductionResult && $holidayResult && $scheduleResult && $positionResult) {
+if ($employeeResult && $employee_leavesResult && $holidayResult && $scheduleResult && $positionResult) {
     // Fetch the result for employees as an associative array
     $employeeRow = $employeeResult->fetch_assoc();
-    // Fetch the result for deductions as an associative array
-    $deductionRow = $deductionResult->fetch_assoc();
+    // Fetch the result for employee_leavess as an associative array
+    $employee_leavesRow = $employee_leavesResult->fetch_assoc();
 
     $holidayRow = $holidayResult->fetch_assoc();
     // Fetch the result for schedules as an associative array
@@ -66,14 +66,14 @@ if ($employeeResult && $deductionResult && $holidayResult && $scheduleResult && 
 
     // Get the count values
     $employeeCount = $employeeRow['employeeCount'];
-    $deductionCount = $deductionRow['deductionCount'];
+    $employee_leavesCount = $employee_leavesRow['employee_leavesCount'];
 
     $positionCount = $positionRow['positionCount'];
 
 
     // Close the result sets
     $employeeResult->close();
-    $deductionResult->close();
+    $employee_leavesResult->close();
     $holidayResult->close();
     $scheduleResult->close();
     $positionResult->close();
@@ -100,14 +100,14 @@ $conn->close();
             </div>
         </div>
 
-        <!-- Deduction Card -->
+        <!-- employee_leaves Card -->
         <div class="col-md-6 col-lg-4">
             <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-                <div class="card-header"><b>Deduction</b></div>
+                <div class="card-header"><b>Employee Leaves</b></div>
                 <div class="card-body">
-                    <h5 class="card-title">No. Of Deduction</h5>
-                    <p class="card-text"><?php echo "Number of Deductions: " . $deductionCount; ?></p>
-                    <a class="btn btn-primary shadow" href="nav.php?page=Deduction.php">Click This</a>
+                    <h5 class="card-title">No. Of Employee Leaves</h5>
+                    <p class="card-text"><?php echo "Number of Employee Leaves: " . $employee_leavesCount; ?></p>
+                    <a class="btn btn-success shadow" href="nav.php?page=employee_leaves_display.php">Click This</a>
                 </div>
             </div>
         </div>
@@ -119,12 +119,12 @@ $conn->close();
                 <div class="card-body">
                     <h5 class="card-title">No. Of Holiday</h5>
                     <p class="card-text"><?php echo "Number of Holidays: " . $holidayCount; ?></p>
-                    <a class="btn btn-primary shadow" href="nav.php?page=holiday.php">Click This</a>
+                    <a class="btn btn-danger shadow" href="nav.php?page=holiday.php">Click This</a>
                 </div>
             </div>
         </div>
 
-        <!-- Schedule Card -->
+<!--     
         <div class="col-md-6 col-lg-4">
             <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
                 <div class="card-header"><b>Schedule</b></div>
@@ -136,7 +136,7 @@ $conn->close();
             </div>
         </div>
 
-        <!-- First Position Card -->
+     
         <div class="col-md-6 col-lg-4">
             <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
                 <div class="card-header"><b>Position</b></div>
@@ -148,7 +148,7 @@ $conn->close();
             </div>
         </div>
 
-        <!-- Second Position Card -->
+     
         <div class="col-md-6 col-lg-4">
             <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
                 <div class="card-header"><b>Position</b></div>
@@ -158,7 +158,7 @@ $conn->close();
                     <a class="btn btn-primary shadow" href="nav.php?page=position.php">Click This</a>
                 </div>
             </div>
-        </div>
+        </div> -->
 
   
 

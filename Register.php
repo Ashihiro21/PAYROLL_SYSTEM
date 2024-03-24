@@ -27,6 +27,45 @@ function getDefaultImages() {
     return 'img/dp.jpg';
 }
 
+function populatePositionDropdown() {
+    // Replace these database connection details with your own
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "payroll_system";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // SQL query to get positions from the database (replace 'your_table_name' with the actual table name)
+    $sql = "SELECT * FROM position";
+    $result = $conn->query($sql);
+
+    $options = "";
+
+    if ($result->num_rows > 0) {
+        // Output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $options .= "<option value='" . $row["id"] . "'>" . $row["position"] . "</option>";
+        }
+    } else {
+        $options .= "<option value=''>No positions found</option>";
+    }
+
+    $conn->close();
+
+    return $options;
+}
+
+
+
+
+
 // Process form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Collect form data
@@ -34,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $last_name = $_POST['last_name'];
     $email = $_POST['email'];
     $department = $_POST['department'];
-    $position = $_POST['position'];
+    $position_id = $_POST['position_id'];
     $password = $_POST['password']; // For simplicity, password is not hashed here. You should hash it before storing it in the database.
 
     // Generate Employee_No
@@ -55,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo '<p style="color: red;">Email already exists.</p>';
     } else {
         // Insert user data into the database
-        $insert_sql = "INSERT INTO employee (Employee_No, first_name, last_name, email, department, position, password, images) VALUES (:Employee_No, :first_name, :last_name, :email, :department, :position, :password, :images)";
+        $insert_sql = "INSERT INTO employee (Employee_No, first_name, last_name, email, department, position_id, password, images) VALUES (:Employee_No, :first_name, :last_name, :email, :department, :position_id, :password, :images)";
         
         // Prepare and bind the statement
         $insert_stmt = $conn->prepare($insert_sql);
@@ -64,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $insert_stmt->bindParam(':last_name', $last_name);
         $insert_stmt->bindParam(':email', $email);
         $insert_stmt->bindParam(':department', $department);
-        $insert_stmt->bindParam(':position', $position);
+        $insert_stmt->bindParam(':position_id', $position_id);
         $insert_stmt->bindParam(':password', $password); // Remember to hash the password
         $insert_stmt->bindParam(':images', $default_images);
 
@@ -148,10 +187,15 @@ $conn = null;
                             <label for="department">Department *</label>
                             <input type="text" class="form-control" id="department" name="department" required>
                         </div>
+
                         <div class="form-group">
-                            <label for="position">Position *</label>
-                            <input type="text" class="form-control" id="position" name="position" required>
+                            <label> Position </label>
+                            <select name="position_id" class="form-control">
+                            <?php echo populatePositionDropdown(); ?>
+                        </select>
                         </div>
+
+
                         <div class="form-group">
                             <label for="email">Email Address *</label>
                             <input type="email" class="form-control" id="email" name="email" required>

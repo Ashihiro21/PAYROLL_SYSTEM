@@ -9,10 +9,10 @@ $db = mysqli_select_db($connection, 'payroll_system');
         $first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
         $department = $_POST['department'];
-        $position = $_POST['position'];
+        $position_id = $_POST['position_id'];
         $email = $_POST['email'];
 
-        $query = "UPDATE employee SET first_name='$first_name', last_name='$last_name', department='$department', position=' $position', email=' $email' WHERE id='$id'  ";
+        $query = "UPDATE employee SET first_name='$first_name', last_name='$last_name', department='$department', position_id=' $position_id', email=' $email' WHERE id='$id'  ";
         $query_run = mysqli_query($connection, $query);
 
         if($query_run)

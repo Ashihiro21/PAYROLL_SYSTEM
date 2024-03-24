@@ -25,8 +25,7 @@ function populatePositionDropdown() {
     if ($result->num_rows > 0) {
         // Output data of each row
         while ($row = $result->fetch_assoc()) {
-            $position = $row["position"];
-            $options .= "<option value='$position'>$position</option>";
+            $options .= "<option value='" . $row["id"] . "'>" . $row["position"] . "</option>";
         }
     } else {
         $options .= "<option value=''>No positions found</option>";
@@ -36,6 +35,7 @@ function populatePositionDropdown() {
 
     return $options;
 }
+
 
 
 function populatetime_inDropdown() {
@@ -322,7 +322,7 @@ body {}
 
                         <div class="form-group">
                             <label> Position </label>
-                            <select name="position" class="form-control">
+                            <select name="position_id" class="form-control">
                             <?php echo populatePositionDropdown(); ?>
                         </select>
                         </div>
@@ -387,7 +387,7 @@ body {}
 
                         <div class="form-group">
                             <label> position </label>
-                            <select name="position" class="form-control">
+                            <select name="position_id" class="form-control">
                             <?php echo populatePositionDropdown(); ?>
                         </select>
                         </div>
@@ -410,29 +410,60 @@ body {}
 
 
     <!-- EDIT IMAGE POP UP FORM (Bootstrap MODAL) -->
-    <div class="modal fade" id="editimagemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editmodalimage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Employee Image</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> Edit Student Data </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="update_image.php" method="POST" enctype="multipart/form-data">
+
+                <form action="updatecode_employee.php" method="POST">
+
                     <div class="modal-body">
-                        <!-- Add form fields for editing the image -->
-                        <input type="hidden" name="update_image_id" id="update_image_id">
+                        <input type="hidden" name="update_id" id="update_id">
+                        <input type="hidden" name="Employee_No" id="Employee_No">
+
                         <div class="form-group">
-                            <label> New Profile Image </label>
-                            <input type="file" name="new_image" class="form-control">
+                            <label> First Name </label>
+                            <input type="text" name="first_name" id="first_name" class="form-control"
+                                placeholder="Enter First Name">
+                        </div>
+
+                        <div class="form-group">
+                            <label> Last Name </label>
+                            <input type="text" name="last_name" id="last_name" class="form-control"
+                                placeholder="Enter Last Name">
+                        </div>
+
+                        <div class="form-group">
+                            <label> department </label>
+                            <input type="text" name="department" id="department" class="form-control"
+                                placeholder="Enter department">
+                        </div>
+
+                        <div class="form-group">
+                            <label> position </label>
+                            <select name="position_id" class="form-control">
+                            <?php echo populatePositionDropdown(); ?>
+                        </select>
+                        </div>
+
+                        <div class="form-group">
+                            <!-- <label> email </label> -->
+                            <input type="hidden" name="email" id="email" class="form-control"
+                                placeholder="Enter email">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="update_image" class="btn btn-primary">Update Image</button>
+                        <button type="submit" name="updatedata" class="btn btn-primary">Update Data</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -552,13 +583,21 @@ body {}
                          $next_page = $page_no + 1;
                          $adjacents = "2"; 
                      
-                         $result_count = mysqli_query($connection,"SELECT COUNT(*) As total_records FROM employee ");
+                         $result_count = mysqli_query($connection, "SELECT COUNT(*) AS total_records
+                         FROM employee
+                         INNER JOIN position ON employee.position_id = position.id");
+
                          $total_records = mysqli_fetch_array($result_count);
                          $total_records = $total_records['total_records'];
                          $total_no_of_pages = ceil($total_records / $total_records_per_page);
                          $second_last = $total_no_of_pages - 1; // total page minus 1
 
-                         $query = "SELECT * FROM employee ORDER BY id DESC LIMIT $offset, $total_records_per_page";
+                         $query = "SELECT employee.*, position.position 
+                         FROM employee 
+                         INNER JOIN position ON employee.position_id = position.id 
+                         ORDER BY employee.id DESC 
+                         LIMIT $offset, $total_records_per_page";
+               
                          $query_run = mysqli_query($connection, $query);
             ?>  
                    
@@ -591,13 +630,13 @@ body {}
                                 <td class="hide-id"> <?php echo $row['email']; ?> </td>
                                 <td class="hide-id"> <?php echo $row['password']; ?> </td>
                                 <td> <img src="<?php echo $row['images']; ?>" alt="Image" class='img-thumbnail' width='50'>
-                                <button type="button" class="btn btn-warning editImageBtn"><i class="lni lni-image"></i></button></td>
+                                <!-- <button type="button" class="btn btn-warning editImageBtn"><i class="lni lni-image"></i></button></td> -->
                                 <td>
                 
 
                                 <!-- <button type="button" class="btn btn-info viewbtn"><i class="lni lni-eye"></i></button> -->
 
-                                <button type="button" class="btn btn-success editbtn"><i class="lni lni-pencil"></i></button>
+                                <!-- <button type="button" class="btn btn-success editbtn"><i class="lni lni-pencil"></i></button> -->
 
                                 <button type="button" class="btn btn-danger deletebtn"><i class="lni lni-trash-can"></i></button>
 
@@ -794,6 +833,28 @@ if ($total_no_of_pages <= 10) {
             });
         });
     </script>
+
+    <!-- <script>
+        $(document).ready(function () {
+
+            $('.editImageBtn').on('click', function () {
+
+                $('#editimagemodal').modal('show');
+
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function () {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#update_id').val(data[0]);
+                $('#Employee_No').val(data[1]);
+                $('images').val(data[6]);
+            });
+        });
+    </script> -->
 
    <script>
     $(document).ready(function(){

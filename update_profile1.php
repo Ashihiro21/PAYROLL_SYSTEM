@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['email'])) {
     $firstName = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_STRING);
     $lastName = filter_input(INPUT_POST, 'lastName', FILTER_SANITIZE_STRING);
     $department = filter_input(INPUT_POST, 'department', FILTER_SANITIZE_STRING);
-    $position = filter_input(INPUT_POST, 'position', FILTER_SANITIZE_STRING);
+    $position_id = filter_input(INPUT_POST, 'position_id', FILTER_SANITIZE_STRING);
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
     $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['email'])) {
 
     // Update the admin's information in the database
     $updateSql = "UPDATE employee SET first_name = :firstName, last_name = :lastName, department = :department, 
-                  position = :position, password = :password, email = :email";
+                  position_id = :position_id, password = :password, email = :email";
     if(isset($imageFullPath)) {
         // If an image was uploaded, include it in the update query
         $updateSql .= ", images = :images";
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['email'])) {
     $stmt->bindParam(':firstName', $firstName, PDO::PARAM_STR);
     $stmt->bindParam(':lastName', $lastName, PDO::PARAM_STR);
     $stmt->bindParam(':department', $department, PDO::PARAM_STR);
-    $stmt->bindParam(':position', $position, PDO::PARAM_STR);
+    $stmt->bindParam(':position_id', $position_id, PDO::PARAM_STR);
     $stmt->bindParam(':password', $password, PDO::PARAM_STR);
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
     if(isset($imageFullPath)) {

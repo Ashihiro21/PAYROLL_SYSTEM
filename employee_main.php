@@ -214,6 +214,12 @@ body{
                     <span>Attendance</span>
                 </a>
             </li>
+                        <li class="sidebar-item">
+                <a href="?page=summary_report.php" class="sidebar-link"<?php if ($page === 'summary_report.php') echo ' class="active"'; ?>>
+                    <i class="lni lni-hourglass"></i> <!-- Replace "lni-checkmark-circle" with the desired LineIcons class -->
+                    <span>Summary Report</span>
+                </a>
+            </li>
                 
             
           
@@ -246,7 +252,7 @@ $(document).ready(function () {
             $("#firstName").val(userData.first_name);
             $("#lastName").val(userData.last_name);
             $("#department").val(userData.department);
-            $("#position").val(userData.position);
+            $("#position_id").val(userData.position_id);
             $("#password").val(userData.password);
             // Display images if available
             $("#images").val(userData.images);
@@ -388,10 +394,10 @@ $(document).ready(function () {
                         <label for="department" class="form-label">Department</label>
                         <input type="text" class="form-control" id="department" name="department" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="position" class="form-label">Position</label>
-                        <input type="text" class="form-control" id="position" name="position" required>
-                    </div>
+                    <!-- <div class="mb-3">
+                        <label for="position_id" class="form-label">Position_id</label>
+                        <input type="text" class="form-control" id="position_id" name="position_id" required>
+                    </div> -->
                     <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <div class="input-group">

@@ -33,7 +33,7 @@ if ($conn->connect_error) {
 }
 
 // Query to fetch users from the database
-$sql = "SELECT A.Employee_No, A.time_in, A.time_out, A.time_in2, A.time_out2, A.date, A.num_hr, E.first_name, E.last_name
+$sql = "SELECT A.Employee_No, A.time_in, A.time_out, A.time_in2, A.time_out2, A.date, A.num_hr, A.status, E.first_name, E.last_name
         FROM attendance A
         INNER JOIN employee E ON A.Employee_No = E.Employee_No";
 
