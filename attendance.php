@@ -14,11 +14,10 @@
         display: none;
     }
 
-    @media (max-width: 575.98px) {
-            .hide-sm {
-                display: none !important;
-            }
-        }
+  
+
+
+
 
         .searchbar{
     margin-bottom: auto;
@@ -64,6 +63,39 @@
     color:white;
     text-decoration:none;
     }
+
+
+    table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Define styles for responsive and scrollable table */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        /* Optional: Add max-width to prevent horizontal scrolling on smaller screens */
+        .table-wrapper table {
+            max-width: 100%;
+        }
+
+        h2{
+            margin-bottom:2rem;
+            margin-top:2rem;
+        }
+
+
+
 </style>
 <body>
 
@@ -278,7 +310,7 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
     LIMIT $offset, $total_records_per_page";
     $query_run = mysqli_query($connection, $query);
 ?>
-
+<div class="table-wrapper">
                     <table id="datatableid" class="table table-bordered shadow">
                         <thead>
                             <tr>
@@ -289,6 +321,7 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
                                 <th scope="col" class="hide-sm">TIME IN PM</th>
                                 <th scope="col" class="hide-sm">TIME OUT PM</th>
                                 <th scope="col">NUMBER OF HOURS</th>
+                                <th scope="col">LOCATION</th>
                                 <th scope="col">STATUS</th>
                                 <th scope="col">DATE</th>
     
@@ -323,7 +356,7 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
                                                 ?>
 
                                 <td><?php echo ($row['num_hr'] <= 1) ? 0 : ($row['num_hr'] - 1); ?></td>
-
+                                <td><?php echo $row['location']; ?></td>
                                 <td><?php echo $row['status']; ?></td>
                                 <td><?php echo $row['date']; ?></td>
                             </tr>
@@ -340,7 +373,9 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
             ?>
 
                     </table>
-
+            </div>
+            </div>
+                
 
                 
 

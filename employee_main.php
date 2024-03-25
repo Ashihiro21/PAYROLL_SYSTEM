@@ -149,7 +149,7 @@ body{
                     include_once('db_config.php');
 
                     // Initialize or define the $page variable
-                    $page = isset($_GET['page']) ? $_GET['page'] : 'employee_dashboard.php';
+                    $page = isset($_GET['page']) ? $_GET['page'] : 'my_dashboard.php';
 
                     // Use a parameterized query to prevent SQL injection
                     $sql = "SELECT * FROM employee WHERE email = :email";

@@ -50,6 +50,35 @@
     color:white;
     text-decoration:none;
     }
+
+    table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Define styles for responsive and scrollable table */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        /* Optional: Add max-width to prevent horizontal scrolling on smaller screens */
+        .table-wrapper table {
+            max-width: 100%;
+        }
+
+        h2{
+            margin-bottom:2rem;
+            margin-top:2rem;
+        }
 </style>
 <body>
 
@@ -260,6 +289,7 @@
       
                 $query_run = mysqli_query($connection, $query)
             ?>
+              <div class="table-wrapper">
                     <table id="datatableid" class="table table-bordered shadow">
                         <thead>
                             <tr>
@@ -303,6 +333,7 @@
                 }
             ?>
                     </table>
+                    <div>
                 </div>
             </div>
             <ul class="pagination">

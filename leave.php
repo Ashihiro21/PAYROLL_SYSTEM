@@ -6,6 +6,37 @@
     .hide-id {
         display: none;
     }
+
+    table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Define styles for responsive and scrollable table */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        /* Optional: Add max-width to prevent horizontal scrolling on smaller screens */
+        .table-wrapper table {
+            max-width: 100%;
+        }
+
+        h2{
+            margin-bottom:2rem;
+            margin-top:2rem;
+        }
+
+    
 </style>
 <body>
 
@@ -142,7 +173,7 @@
     <div class="container-fluid">
         <div class="jumbotron bg-light shadow border border-secondary">
             <div class="card bg-light" style="border-color: transparent;">
-                <h2> Deduction </h2>
+                <h2> Leaves </h2>
             </div>
             <div class="card bg-light" style="border-color: transparent;">
                 <div class="card-body bg-light">
@@ -192,6 +223,7 @@
 
   
           ?>
+            <div class="table-wrapper">
                   <table id="datatableid" class="table table-bordered shadow">
                     <table id="datatableid" class="table table-bordered shadow">
                         <thead>
@@ -228,14 +260,10 @@
                 }
             ?>
                     </table>
-                </div>
-            </div>
+              
 
+          
 
-        </div>
-    </div>
-
-    <strong>Page <?php echo $page_no." of ".$total_no_of_pages; ?></strong>
                 </div>
 
                 <ul class="pagination">
@@ -298,7 +326,19 @@ if ($total_no_of_pages <= 10) {
         }
     }
 }
+
+
 ?>
+</div>
+</div>
+
+<strong>Page <?php echo $page_no." of ".$total_no_of_pages; ?></strong>
+
+
+
+</div>
+                </div>
+            </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>

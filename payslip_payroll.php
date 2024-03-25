@@ -194,11 +194,11 @@ if ($result->num_rows > 0) {
             echo "<tr>";
             echo "<td>" . $row['full_name'] . "</td>";
             echo "<td>" . $row['Employee_No'] . "</td>";
-            echo "<td>" . $row['total_hours'] . "</td>";
+            echo "<td>" . ($row['total_hours'] < 0 ? 0 : $row['total_hours']) . "</td>";
             // echo "<td>" . $row['position_rate'] . "</td>";
             // echo "<td>" . $deduction . "</td>";
             // echo "<td>" . number_format($gross, 2) . "</td>";
-            echo "<td>" . $row['total_overtime']. "</td>";
+            echo "<td>" . ($row['total_overtime'] < 0 ? 0 : $row['total_overtime']) . "</td>";
             echo "<td>" . $row['leave_count']. "</td>";
             // echo "<td>" . number_format($net < 0 ? 0 : $net, 2) . "</td>";   
             echo "</tr>";
