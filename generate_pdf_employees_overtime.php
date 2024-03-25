@@ -36,7 +36,7 @@ if ($conn->connect_error) {
 $sql = "SELECT A.Employee_No, A.date, A.num_hr, E.first_name, E.last_name
         FROM attendance A
         INNER JOIN employee E ON A.Employee_No = E.Employee_No
-        WHERE A.admin_approve = 'Approve' AND num_hr > 9;";
+        WHERE A.admin_approve = 'Approve' AND MONTH(A.date) = MONTH(CURDATE())";
 
 $result = $conn->query($sql);
 

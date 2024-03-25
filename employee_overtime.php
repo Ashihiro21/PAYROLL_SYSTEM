@@ -239,7 +239,8 @@
             $adjacents = "2"; 
         
             $result_count = mysqli_query($connection, "SELECT COUNT(*) AS total_records 
-                                           FROM attendance WHERE num_hr > 9");
+                                           FROM attendance WHERE num_hr > 8 AND date = CURDATE()");
+
   
 
             $total_records = mysqli_fetch_array($result_count);
@@ -252,7 +253,7 @@
 
 
             $query = "SELECT * FROM attendance 
-            WHERE overtime
+            WHERE overtime AND num_hr > 8 AND date = CURDATE()
             ORDER BY id DESC 
             LIMIT $offset, $total_records_per_page";
   
@@ -265,7 +266,7 @@
                                 <th scope="col">Employee ID</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Number of Overtime</th>
-                                <th scope="col">Status</th>
+                                <!-- <th scope="col">Status</th> -->
                                 <th scope="col">Admin Approve</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -282,7 +283,6 @@
                                 <td> <?php echo $row['Employee_No']; ?> </td>
                                 <td> <?php echo $row['date']; ?> </td>
                                 <td> <?php echo $row['num_hr'] - 9; ?> </td>
-                                <td> <?php echo $row['status']; ?> </td>
                                 <td> <?php echo $row['admin_approve']; ?> </td>
                                 
                                 <td>

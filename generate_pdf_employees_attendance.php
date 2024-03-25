@@ -35,7 +35,8 @@ if ($conn->connect_error) {
 // Query to fetch users from the database
 $sql = "SELECT A.Employee_No, A.time_in, A.time_out, A.time_in2, A.time_out2, A.date, A.num_hr, A.status, E.first_name, E.last_name
         FROM attendance A
-        INNER JOIN employee E ON A.Employee_No = E.Employee_No";
+        INNER JOIN employee E ON A.Employee_No = E.Employee_No WHERE MONTH(A.date) = MONTH(CURDATE())";
+
 
 $result = $conn->query($sql);
 
@@ -61,19 +62,21 @@ $html .= '<table border="1">
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         // You may need to adjust the overtime calculation logic here
-        $overtime_hours = $row["num_hr"] - 1; // Adjust as necessary
+
 
         $html .= '<tr>
-                    <td>' . $row["Employee_No"] . '</td>
-                    <td>' . $row["first_name"] . ' ' . $row["last_name"] . '</td>
-                    <td>' . date('h:i A', strtotime($row["time_in"])) . '</td>
-                    <td>' . date('h:i A', strtotime($row["time_out"])) . '</td>
-                    <td>' . date('h:i A', strtotime($row["time_in2"])) . '</td>
-                    <td>' . date('h:i A', strtotime($row["time_out2"])) . '</td>
-                    <td>' . $overtime_hours . '</td>
-                    <td>' . $row["status"] . '</td>
-                    <td>' . $row["date"] . '</td>
-                  </tr>';
+        <td>' . $row["Employee_No"] . '</td>
+        <td>' . $row["first_name"] . ' ' . $row["last_name"] . '</td>
+        <td>' . (!empty($row["time_in"]) ? date('h:i A', strtotime($row["time_in"])) : "No time record") . '</td>
+        <td>' . (!empty($row["time_out"]) ? date('h:i A', strtotime($row["time_out"])) : "No time record") . '</td>
+        <td>' . (!empty($row["time_in2"]) ? date('h:i A', strtotime($row["time_in2"])) : "No time record") . '</td>
+        <td>' . (!empty($row["time_out2"]) ? date('h:i A', strtotime($row["time_out2"])) : "No time record") . '</td>
+        <td>' . (($row['num_hr'] <= 1) ? 0 : ($row['num_hr'] - 1)) . '</td>
+        <td>' . $row["status"] . '</td>
+        <td>' . $row["date"] . '</td>
+      </tr>';
+
+
     }
 } else {
     $html .= '<tr><td colspan="4">No Employee Found</td></tr>';

@@ -53,6 +53,7 @@ if(isset($_SESSION['email'])) {
     <title>Leave Count</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <style>
   div.card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -67,21 +68,19 @@ if(isset($_SESSION['email'])) {
 </head>
 
 <body>
-<div class="container mt-5">
+<div class="container-fluid mt-5">
         <div class="row">
-        <div class="container">
     <div class="row">
 
         <!-- Employee Card -->
         <div class="col-md-6 col-lg-4">
             <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">No. Of Employee</h5>
-                    <p class="card-text"><?php echo "Number of Employees: " . $leave_count; ?></p>
-                    <a class="btn btn-primary shadow" href="nav.php?page=employee.php">Click This</a>
+                    <h5 class="card-title">Leaves</h5>
+                    <p class="card-text"><?php echo "Number of Leaves: " . $leave_count; ?></p>
+                    <a class="btn btn-primary shadow" href="employee_main.php?page=employee_leaves.php">Click This</a>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 </body>

@@ -191,7 +191,7 @@ a.sidebar-link:hover {
                                         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                                     
                                         // Prepare the SQL query
-                                        $stmt = $conn->prepare("SELECT COUNT(*) AS row_count FROM attendance WHERE overtime AND date = CURDATE() AND admin_approve = 'pending' ");
+                                        $stmt = $conn->prepare("SELECT COUNT(*) AS row_count FROM attendance WHERE overtime AND num_hr >= 9 AND date = CURDATE() AND admin_approve = 'pending' ");
                                         
                                         // Execute the query
                                         $stmt->execute();

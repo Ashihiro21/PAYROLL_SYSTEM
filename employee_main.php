@@ -196,30 +196,30 @@ body{
                     <span>Dashboard</span>
                 </a>
             </li>
-                        <li class="sidebar-item">
-                <a href="?page=employee_leaves.php" class="sidebar-link"<?php if ($page === 'employee_leaves.php') echo ' class="active"'; ?>>
-                    <i class="lni lni-hourglass"></i> <!-- Replace "lni-checkmark-circle" with the desired LineIcons class -->
-                    <span>Leaves</span>
-                </a>
-            </li>
-                        <li class="sidebar-item">
-                <a href="?page=employee_overtime_display.php" class="sidebar-link"<?php if ($page === 'employee_overtime_display.php') echo ' class="active"'; ?>>
-                    <i class="lni lni-hourglass"></i> <!-- Replace "lni-checkmark-circle" with the desired LineIcons class -->
-                    <span>Overtime</span>
-                </a>
-            </li>
-                        <li class="sidebar-item">
-                <a href="?page=employee_attendance.php" class="sidebar-link"<?php if ($page === 'employee_attendance.php') echo ' class="active"'; ?>>
-                    <i class="lni lni-hourglass"></i> <!-- Replace "lni-checkmark-circle" with the desired LineIcons class -->
-                    <span>Attendance</span>
-                </a>
-            </li>
-                        <li class="sidebar-item">
-                <a href="?page=summary_report.php" class="sidebar-link"<?php if ($page === 'summary_report.php') echo ' class="active"'; ?>>
-                    <i class="lni lni-hourglass"></i> <!-- Replace "lni-checkmark-circle" with the desired LineIcons class -->
-                    <span>Summary Report</span>
-                </a>
-            </li>
+            <li class="sidebar-item">
+            <a href="?page=employee_leaves.php" class="sidebar-link"<?php if ($page === 'employee_leaves.php') echo ' class="active"'; ?>>
+                <i class="lni lni-alarm-clock"></i>
+                <span>Leaves</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="?page=employee_overtime_display.php" class="sidebar-link"<?php if ($page === 'employee_overtime_display.php') echo ' class="active"'; ?>>
+                <i class="lni lni-hourglass"></i>
+                <span>Overtime</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="?page=employee_attendance.php" class="sidebar-link"<?php if ($page === 'employee_attendance.php') echo ' class="active"'; ?>>
+                <i class="lni lni-calendar"></i>
+                <span>Attendance</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="?page=summary_report.php" class="sidebar-link"<?php if ($page === 'summary_report.php') echo ' class="active"'; ?>>
+                <i class="lni lni-list"></i>
+                <span>Summary Report</span>
+            </a>
+        </li>
                 
             
           

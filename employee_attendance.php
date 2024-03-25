@@ -54,7 +54,7 @@ $username = $_SESSION['email'];
 
 $stmt = $conn->prepare("SELECT employee.*, attendance.*
 FROM employee
-INNER JOIN attendance ON employee.Employee_No = attendance.Employee_No
+LEFT JOIN attendance ON employee.Employee_No = attendance.Employee_No
 WHERE employee.email = ?
 ");
 $stmt->bind_param("s", $_SESSION['email']);
@@ -291,7 +291,7 @@ $email = $row['email'];
                 $next_page = $page_no + 1;
                 $adjacents = 2;
                 
-                $result_count = mysqli_query($connection, "SELECT COUNT(*) As total_records FROM employee INNER JOIN attendance ON employee.Employee_No = attendance.Employee_No WHERE employee.email = '$email'");
+                $result_count = mysqli_query($connection, "SELECT COUNT(*) As total_records FROM employee LEFT JOIN attendance ON employee.Employee_No = attendance.Employee_No WHERE employee.email = '$email'");
 
                 $total_records = mysqli_fetch_array($result_count);
                 $total_records = $total_records['total_records'];
@@ -304,7 +304,7 @@ $email = $row['email'];
 
                 $query = "SELECT employee.*, attendance.*
                 FROM employee
-                INNER JOIN attendance ON employee.Employee_No = attendance.Employee_No
+                LEFT JOIN attendance ON employee.Employee_No = attendance.Employee_No
                 WHERE employee.email = '$email' ORDER BY employee.id DESC
                 LIMIT $offset, $total_records_per_page;
                 ";
@@ -334,7 +334,7 @@ $email = $row['email'];
                             <tr>
                                 <td class="hide-id"> <?php echo $row['id']; ?> </td>
                                 <td class="hide-id"> <?php echo $row['email']; ?> </td>
-                                <td> <?php echo !empty($row['time_in']) ? date('h:i A', strtotime($row['time_in'])) : ''; ?> </td>
+                                <td> <?php echo !empty($row['time_in']) ? date('h:i A', strtotime($row['time_in'])) : 'No Time in'; ?> </td>
                                 <td> <?php echo !empty($row['time_out']) ? date('h:i A', strtotime($row['time_out'])) : 'No Time Out'; ?> </td>
                                 <td> <?php echo !empty($row['time_in2']) ? date('h:i A', strtotime($row['time_in2'])) : 'No Time In'; ?> </td>
                                 <td> <?php echo !empty($row['time_out2']) ? date('h:i A', strtotime($row['time_out2'])) : 'No Time Out'; ?> </td>

@@ -608,7 +608,7 @@ body {}
                                 <th scope="col">First Name</th>
                                 <th scope="col">Last Name</th>
                                 <th scope="col">Department</th>
-                                <th scope="col">Position</th>
+                                <!-- <th scope="col">Position</th> -->
                                 <th scope="col">Photo</th>
                                 <th scope="col"> Action </th>
                             </tr>
@@ -626,7 +626,6 @@ body {}
                                 <td> <?php echo $row['first_name']; ?> </td>
                                 <td><?php echo $row['last_name']; ?> </td>
                                 <td> <?php echo $row['department']; ?> </td>
-                                <td> <?php echo $row['position']; ?> </td>
                                 <td class="hide-id"> <?php echo $row['email']; ?> </td>
                                 <td class="hide-id"> <?php echo $row['password']; ?> </td>
                                 <td> <img src="<?php echo $row['images']; ?>" alt="Image" class='img-thumbnail' width='50'>
