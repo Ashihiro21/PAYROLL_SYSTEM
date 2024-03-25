@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Prepare SQL statement based on the log type
     if ($logType == "time_in") {
-        $sql = "INSERT INTO attendance (Employee_No, time_in, location, status, admin_approve) VALUES (?, ?, ?, 'waiting', 'pending')";
+        $sql = "INSERT INTO attendance (Employee_No, time_in, location, status, admin_approve) VALUES (?, ?, ?, 'waiting', 'Pending')";
 
     } elseif ($logType == "time_out") {
         // Update query corrected

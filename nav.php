@@ -9,6 +9,32 @@ if (!isset($_SESSION['username'])) {
 
 ?>
 
+
+<?php
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "payroll_system";
+
+
+    // Create a PDO connection
+    $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+    
+    // Set PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Prepare the SQL query
+    $stmt = $conn->prepare("SELECT COUNT(*) AS row_count FROM attendance WHERE overtime AND num_hr >= 9 AND date = CURDATE() AND admin_approve = 'Pending' ");
+    
+    // Execute the query
+    $stmt->execute();
+    
+    // Fetch the row count
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $rowCount = $row['row_count'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,7 +93,6 @@ body{
 
 .accordion-menu .treeview-menu {
     list-style-type: none;
-    padding-left: 80px;
     background: #0a1828;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -107,6 +132,10 @@ body{
 
 }
 
+
+
+
+
 .sidebar-item.accordion-item {
     /* border: none !important; */
     border: none;
@@ -138,13 +167,30 @@ a.sidebar-link:hover {
     margin-right:200px
 }
 
+.nav-link {
+    text-decoration: none;
+    color: inherit;
+    display: block; /* Change display property to block */
+    padding: 10px 15px; /* Add padding for better touch interaction */
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+    .nav-link {
+        margin-right: 2rem; /* Reduce font size for smaller screens */
+    }
+
+
+}
+
+
 </style>
 </head>
 
 <body>
     <div class="header" style="padding:1rem">
     
-        <h1 class='tittle float-center'>Payroll Management System
+        <h1 class='tittle'>Payroll Management System
         
         
         <?php
@@ -170,47 +216,8 @@ a.sidebar-link:hover {
                         echo "
                             <span class='users'>
                                 <a class='nav-link' href='nav.php?page=employee_overtime.php'>
-                                    <svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' fill='currentColor' viewBox='0 0 16 16'>
-                                        <path d='M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z'/>
-                                        <path d='M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z'/>
-                                        <path d='M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5'/>
-                                    </svg>";
-                       
-                                    // Assuming you have already connected to your MySQL database
-              
-                                    $servername = "localhost";
-                                    $username = "root";
-                                    $password = "";
-                                    $database = "payroll_system";
-                                    
-                               
-                                        // Create a PDO connection
-                                        $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-                                        
-                                        // Set PDO error mode to exception
-                                        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                    
-                                        // Prepare the SQL query
-                                        $stmt = $conn->prepare("SELECT COUNT(*) AS row_count FROM attendance WHERE overtime AND num_hr >= 9 AND date = CURDATE() AND admin_approve = 'pending' ");
-                                        
-                                        // Execute the query
-                                        $stmt->execute();
-                                        
-                                        // Fetch the row count
-                                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                                        $rowCount = $row['row_count'];
-                                        
-                                        // Output the row count
+                                <i class='lni lni-popup notif'></i>";
                                         echo '<span class="count badge badge-danger" style="font-size: 15px;">' . $rowCount . '</span>';
-
-
-                                  
-                                 
-                                    
-                                
-                                    
-                     
-                        
                         echo "
                                 </a>
                                 <button class='circle-button dropdown-toggle' 
@@ -331,17 +338,17 @@ a.sidebar-link:hover {
                     <ul class="treeview-menu">
                     <li>
             <a href="?page=employee.php"<?php if ($page === 'employee.php') echo ' class="active"'; ?> class="accordion-item">
-                <i class="lni lni-users"></i> Employees
+                <i class="lni lni-users"></i> <span>Employees</span>
             </a>
         </li>
         <li>
     <a href="?page=employee_leaves_display.php"<?php if ($page === 'employee_leaves_display.php') echo ' class="active"'; ?> class="accordion-item">
-        <i class="lni lni-briefcase"></i> Work Leaves
+        <i class="lni lni-briefcase"></i> <span>Work Leaves</span>
     </a>
 </li>
 <li>
     <a href="?page=employee_overtime.php"<?php if ($page === 'employee_overtime.php') echo ' class="active"'; ?> class="accordion-item">
-        <i class="fas fa-clock"></i> Overtime
+        <i class="fas fa-clock"></i> <span>Overtime</span>
     </a>
 </li>
 
@@ -352,20 +359,35 @@ a.sidebar-link:hover {
 
 
 <script>
-    $(document).ready(function () {
-    // Add accordion functionality
+$(document).ready(function () {
     $('.accordion-button').click(function () {
         $(this).toggleClass('collapsed');
-        $(this).attr('aria-expanded', $(this).attr('aria-expanded') === 'false' ? 'true' : 'false'); // Change the value of 'aria-expanded'
+        $(this).attr('aria-expanded', $(this).attr('aria-expanded') === 'false' ? 'true' : 'false');
+
+        // Toggle the max-height of the treeview-menu
         var target = $(this).attr('data-bs-target');
         var treeview = $(target);
         if (treeview.css('maxHeight') !== '0px') {
             treeview.css('maxHeight', '0px');
+            // Hide the dropdown when the collapse is shown
+            $(this).parent().find('.dropdown-menu').hide();
         } else {
             treeview.css('maxHeight', treeview.prop('scrollHeight') + "px");
         }
     });
+
+    // Prevent the dropdown from toggling when the collapse is shown
+    $('.treeview-menu').on('shown.bs.collapse', function () {
+        $(this).closest('.accordion-button').attr('data-bs-toggle', '');
+    });
+
+    // Re-enable dropdown toggling when the collapse is hidden
+    $('.treeview-menu').on('hidden.bs.collapse', function () {
+        $(this).closest('.accordion-button').attr('data-bs-toggle', 'collapse');
+    });
 });
+
+
 </script>
 
 

@@ -114,8 +114,8 @@
             <option value="time_in">Time In AM</option>
             <option value="time_out">Time Out AM</option>
             <option value="time_in2">Time In PM</option>
-            <option value="overtime">Overtime</option>
             <option value="time_out2">Time Out PM</option>
+            <option value="overtime">Overtime</option>
         </select><br><br>
         <input type="hidden" id="time" name="time">
         <input type="submit" value="Submit" onclick="populateHiddenFields()">

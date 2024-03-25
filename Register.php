@@ -156,6 +156,9 @@ $conn = null;
             background-color: #0e2238;
             color: white;
         }
+        #posiion_id{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -188,7 +191,7 @@ $conn = null;
                             <input type="text" class="form-control" id="department" name="department" required>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" id="posiion_id">
                             <label> Position </label>
                             <select name="position_id" class="form-control">
                             <?php echo populatePositionDropdown(); ?>

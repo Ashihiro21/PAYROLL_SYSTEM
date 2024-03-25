@@ -196,7 +196,7 @@ body{
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li class="sidebar-item">
+                      <li class="sidebar-item">
             <a href="?page=employee_leaves.php" class="sidebar-link"<?php if ($page === 'employee_leaves.php') echo ' class="active"'; ?>>
                 <i class="lni lni-alarm-clock"></i>
                 <span>Leaves</span>

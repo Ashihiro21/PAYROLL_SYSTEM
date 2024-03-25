@@ -265,7 +265,7 @@
                             <tr>
                                 <th scope="col">Employee ID</th>
                                 <th scope="col">Date</th>
-                                <th scope="col">Number of Overtime</th>
+                                <th scope="col">Overtime Hours</th>
                                 <!-- <th scope="col">Status</th> -->
                                 <th scope="col">Admin Approve</th>
                                 <th scope="col">Action</th>

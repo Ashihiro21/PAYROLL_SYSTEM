@@ -6,6 +6,35 @@
     .hide-id {
         display: none;
     }
+
+    table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Define styles for responsive and scrollable table */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        /* Optional: Add max-width to prevent horizontal scrolling on smaller screens */
+        .table-wrapper table {
+            max-width: 100%;
+        }
+
+        h2{
+            margin-bottom:2rem;
+            margin-top:2rem;
+        }
 </style>
 <body>
 
@@ -52,7 +81,10 @@
                         
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeAddModal">
+                        <span aria-hidden="true">Close</span>
+                    </button>
+
                         <button type="submit" name="insertdata" class="btn btn-primary">Save Data</button>
                     </div>
                 </form>
@@ -110,7 +142,10 @@
                         
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeEditModal">
+    <span aria-hidden="true">Close</span>
+</button>
+
                         <button type="submit" name="updatedata" class="btn btn-primary">Update Data</button>
                     </div>
                 </form>
@@ -140,7 +175,10 @@
                         <h4> Do you want to Delete this Data ??</h4>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> NO </button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeDeleteModal">
+    <span aria-hidden="true">No</span>
+</button>
+
                         <button type="submit" name="deletedata" class="btn btn-primary"> Yes !! Delete it. </button>
                     </div>
                 </form>
@@ -236,6 +274,7 @@
            
     
             ?>
+            <div class="table-wrapper">
                     <table id="datatableid" class="table table-bordered shadow">
                         <thead>
                             <tr>
@@ -277,6 +316,7 @@
                 }
             ?>
                     </table>
+                    <div>
                 </div>
             </div>
 
@@ -450,6 +490,26 @@ if ($total_no_of_pages <= 10) {
             $("#tableBody tr").filter(function() {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#closeAddModal').click(function() {
+            $('#studentaddmodal').modal('hide');
+        });
+
+        $('#closeEditModal').click(function() {
+            $('#editmodal').modal('hide');
+        });
+
+        $('#closeDeleteModal').click(function() {
+            $('#deletemodal').modal('hide');
+        });
+
+        $('#closeViewModal').click(function() {
+            $('#viewmodal').modal('hide');
         });
     });
 </script>

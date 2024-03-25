@@ -140,11 +140,11 @@ if ($result->num_rows > 0) {
         $html .= '<tr><td style="font-size: 18px;">Employee ID:</td><td style="font-size: 18px;">' . $row['Employee_No'] . '</td></tr>';
         $html .= '<tr><td colspan="2">&nbsp;</td></tr>'; // Empty row for space
         $html .= '<tr><td colspan="2" style="font-size: 20px;"><b>Earnings</b></td></tr>';
-        $html .= '<tr><td style="font-size: 18px;">Total Hours:</td><td style="font-size: 18px;">' . $row['total_hours'] . '</td></tr>';
+        $html .= '<tr><td style="font-size: 18px;">Total Hours:</td><td style="font-size: 18px;">' . ($row['total_hours'] < 0 ? 0 : $row['total_hours']) . '</td></tr>';   
         // $html .= '<tr><td style="font-size: 18px;">Position Rate:</td><td style="font-size: 18px;">' . $row['position_rate'] . '</td></tr>';
         // $html .= '<tr><td style="font-size: 18px;">Deduction:</td><td style="font-size: 18px;">' . $deduction . '</td></tr>';
         // $html .= '<tr><td style="font-size: 18px;">Gross Pay:</td><td style="font-size: 18px;">' . number_format($gross, 2) . '</td></tr>';
-        $html .= '<tr><td style="font-size: 18px;">Overtime:</td><td style="font-size: 18px;">' . $row['total_overtime'] . '</td></tr>';
+        $html .= '<tr><td style="font-size: 18px;">Overtime:</td><td style="font-size: 18px;">' . ($row['total_overtime'] < 0 ? 0 : $row['total_overtime']) . '</td></tr>';
         $html .= '<tr><td style="font-size: 18px;">Leave Count:</td><td style="font-size: 18px;">' . $row['leave_count'] . '</td></tr><br/><br/>';
         // $html .= '<tr><td colspan="2">&nbsp;</td></tr>'; // Empty row for space
         // $html .= '<tr><td colspan="2" style="font-size: 20px;"><b>Net Pay</b></td></tr>';

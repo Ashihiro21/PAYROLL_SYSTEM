@@ -110,7 +110,7 @@
                         <div class="form-group">
                             <label> Status </label>
                             <select name="status" id="status" class="form-control">
-                                <option value="Pending" selected>pending</option>
+                                <option value="Pending" selected>Pending</option>
                                 <option value="Approve">Approve</option>
                                 <option value="Denied">Denied</option>
                             </select>
