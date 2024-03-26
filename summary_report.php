@@ -109,6 +109,21 @@ $result = $conn->query($sql);
         th {
             background-color: #f2f2f2;
         }
+
+        /* Define styles for responsive and scrollable table */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        /* Optional: Add max-width to prevent horizontal scrolling on smaller screens */
+        .table-wrapper table {
+            max-width: 100%;
+        }
+
+        h2{
+            margin-bottom:2rem;
+            margin-top:2rem;
+        }
     </style>
 </head>
 <body>
@@ -117,6 +132,7 @@ $result = $conn->query($sql);
 <a class="btn btn-primary float-left" href="generate_employee_payroll.php" download>Download PDF</a>
 <h2>Payroll Table</h2>
 
+<div class="table-wrapper">
 <table class="table table-bordered shadow">
     <tr>
         <!-- <th>Employee Name</th>
@@ -192,7 +208,7 @@ if ($result->num_rows > 0) {
     }
     ?>
 </table>
-
+</div>
 <?php
 $conn->close();
 ?>

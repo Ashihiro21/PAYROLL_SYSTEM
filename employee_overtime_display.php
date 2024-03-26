@@ -79,6 +79,34 @@ $email = $row['email'];
     .hide-id {
         display: none;
     }
+    table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Define styles for responsive and scrollable table */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        /* Optional: Add max-width to prevent horizontal scrolling on smaller screens */
+        .table-wrapper table {
+            max-width: 100%;
+        }
+
+        h2{
+            margin-bottom:2rem;
+            margin-top:2rem;
+        }
 </style>
 <body>
 
@@ -313,7 +341,7 @@ $email = $row['email'];
 
 
                 $query_run = mysqli_query($connection, $query);
-            ?>
+            ?><div class="table-wrapper">
                     <table id="datatableid" class="table table-bordered shadow">
                         <thead>
                             <tr>
@@ -332,7 +360,8 @@ $email = $row['email'];
                             <tr>
                                 <td class="hide-id"> <?php echo $row['id']; ?> </td>
                                 <td class="hide-id"> <?php echo $row['email']; ?> </td>
-                                <td> <?php echo $row['num_hr'] - 9; ?> </td>
+                                <td> <?php echo ($row['num_hr'] - 9) >= 0 ? ($row['num_hr'] - 9) : 0; ?> </td>
+
                                 <td> <?php echo $row['status']; ?> </td>
                                 <td> <?php echo $row['admin_approve']; ?> </td>
                                 <!-- <td>
@@ -356,13 +385,11 @@ $email = $row['email'];
                     </table>
                 </div>
             </div>
+            </div>
 
+            <strong>Page <?php echo $page_no." of ".$total_no_of_pages; ?></strong>
 
-        </div>
-    </div>
-    <strong>Page <?php echo $page_no." of ".$total_no_of_pages; ?></strong>
-                </div>
-
+    
                 <ul class="pagination">
 
 <!-- First Page -->
@@ -424,6 +451,9 @@ if ($total_no_of_pages <= 10) {
     }
 }
 ?>
+    </div>
+    </div>
+                </div>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
